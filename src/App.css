@@ -1,0 +1,18 @@
+.App {
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+.container-header {
+  border: 1px solid black;
+}
+
+.main {
+  border: 1px solid black;
+}
+
+.container-footer {
+  border: 1px solid black;
+}
