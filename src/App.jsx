@@ -1,11 +1,13 @@
 import { Routes, Route } from "react-router";
 import "./App.css";
-import { Guides, Home, Library, NavbarMobile } from "./components";
+import { Guides, Header, Home, Library, NavbarMobile } from "./components";
 
 const App = () => {
   return (
     <div className="App">
-      <div className="container-header">asass</div>
+      <div className="container-header">
+        <Header/>
+      </div>
       <main className="main">
         <Routes>
           <Route path="/" element={<Home />} />
