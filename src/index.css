@@ -9,4 +9,15 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* colors */
+  --primary-bg-color: #181818;
+  --primary-text-color: #fff;
+
+  /* sizes */
+  --font-size-icon-navbar-mobile: 1.5rem;
+  --font-size-text-navbar-mobile: 0.8rem;
+
+  background-color: var(--primary-bg-color);
+  color: var(--primary-text-color);
 }
