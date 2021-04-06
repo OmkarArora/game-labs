@@ -1,12 +1,14 @@
 import { useEffect } from "react";
 import { useNav } from "../../contexts";
 import { VideoCard } from "../VideoCard/VideoCard";
-import { useAllVideos } from "../../contexts/";
+import { useAllVideos, usePlaylists } from "../../contexts";
 import "./home.css";
 
 export const Home = () => {
   const { setActiveNavLink } = useNav();
   const { allVideos } = useAllVideos();
+  const {playlists} = usePlaylists();
+  console.log({playlists})
 
   useEffect(() => setActiveNavLink("home"));
 

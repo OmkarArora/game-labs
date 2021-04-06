@@ -13,7 +13,7 @@ export const NavbarMobile = () => {
   const { activeNavLink } = useNav();
   return (
     <div className="navbar-mobile">
-      <Link end to="/">
+      <Link to="/">
         <div className="btn-nav btn-nav-home">
           <div className="icon icon-home">
             {activeNavLink === "home" ? <RiHome5Fill /> : <RiHome5Line />}
@@ -22,7 +22,7 @@ export const NavbarMobile = () => {
         </div>
       </Link>
 
-      <Link end to="/guides">
+      <Link to="/guides">
         <div className="btn-nav btn-nav-guides">
           <div className="icon icon-gamepad">
             {activeNavLink === "guides" ? <RiGamepadFill /> : <RiGamepadLine />}
@@ -31,7 +31,7 @@ export const NavbarMobile = () => {
         </div>
       </Link>
 
-      <Link end to="/library">
+      <Link to="/library">
         <div className="btn-nav btn-nav-library">
           <div className="icon icon-library btn-nav">
             {activeNavLink === "library" ? (
