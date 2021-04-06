@@ -1,1 +1,3 @@
-export {useNav, NavProvider} from "./navContext";
+export { useNav, NavProvider } from "./navContext";
+export { useAllVideos, AllVideosProvider } from "./AllVideos/allVideosContext";
+export { usePlaylists, PlaylistsProvider } from "./Playlists/playlistsContext";
