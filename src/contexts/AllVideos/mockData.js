@@ -18,5 +18,15 @@ export const data = [
 		video: "https://www.youtube.com/embed/P8eq61v7WKU",
 		descripton: "New viper tricks on patch 2.06",
 		runtime: {minutes: 9, seconds: 45}
+	},
+	{
+		id: "vid3",
+		title: "Building & editing tricks!",
+		category: "fortnite",
+		// subcategory: {type: "Agent", name: "Yoru"},
+		thumbnail: "https://i.ytimg.com/vi/6MerElOo2eA/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAdwJ5-kjfLguOBGveM1uykHHt8rQ",
+		video: "https://www.youtube.com/embed/6MerElOo2eA",
+		descripton: "In this video, I showcase 11 advanced techniques that always work in Fortnite Battle Royale.",
+		runtime: {minutes: 13, seconds: 26}
 	}
 ]

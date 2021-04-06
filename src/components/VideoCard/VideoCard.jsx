@@ -27,7 +27,7 @@ export const VideoCard = ({ id, title, category, thumbnail, runtime }) => {
             <div>{title}</div>
           </CardContent>
           <CardActions>
-            <span className="icon-menu">
+            <span className="icon-menu remove-tap-highlight">
               <HiOutlineDotsVertical />
             </span>
           </CardActions>

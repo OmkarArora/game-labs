@@ -6,13 +6,14 @@
 }
 
 .container-header {
-  border: 1px solid black;
+  border-bottom: 1px solid var(--icon-color-grey);
 }
 
 .main {
-  border: 1px solid black;
+  overflow-y: auto;
+  padding: 0.5rem 0;
 }
 
 .container-footer {
-  border: 1px solid black;
+  border-top: 1px solid var(--icon-color-grey);
 }
