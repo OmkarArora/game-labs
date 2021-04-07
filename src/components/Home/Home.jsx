@@ -8,8 +8,8 @@ import { AddToPlaylistPopup } from "../AddToPlaylistPopup/AddToPlaylistPopup";
 export const Home = () => {
   const { setActiveNavLink } = useNav();
   const { allVideos } = useAllVideos();
-  const {playlists} = usePlaylists();
-  console.log({playlists})
+  const { playlists } = usePlaylists();
+  console.log({ playlists });
 
   useEffect(() => setActiveNavLink("home"));
 
@@ -25,7 +25,14 @@ export const Home = () => {
           runtime={runtime}
         />
       ))}
-      <AddToPlaylistPopup/>
+      <AddToPlaylistPopup
+        video={{
+          id: "vid1",
+          title: "Viper lineups",
+          thumbnail:
+            "https://i.ytimg.com/vi/6JGEmOoR_x4/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBy0Pg7kFLMAg9-cghsGIb5GChEHg",
+        }}
+      />
     </div>
   );
 };

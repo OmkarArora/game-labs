@@ -10,7 +10,7 @@ export const reducerFn = (state, action) => {
         _state = { ...state };
         const { playlistId, video } = action.payload;
         playlist = _state.playlists.find((item) => item.id === playlistId);
-        playlist = playlist.concat(video);
+        playlist.videos.push(video);
         return _state;
       case "REMOVE_VIDEO_FROM_PLAYLIST":
         //payload: {playlistId: "", videoId: ""}
@@ -18,7 +18,7 @@ export const reducerFn = (state, action) => {
         playlist = _state.playlists.find(
           (item) => item.id === action.payload.playlistId
         );
-        playlist = playlist.filter(
+        playlist.videos = playlist.videos.filter(
           (video) => video.id !== action.payload.videoId
         );
         return _state;
