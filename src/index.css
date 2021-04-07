@@ -15,11 +15,18 @@ body {
   --accent-bg-color: #282828;
   --primary-text-color: #fff;
   --icon-color-grey: #888888;
+  --primary-blue-color: #3ea6ff;
 
   /* sizes */
   --font-size-icon-navbar-mobile: 1.5rem;
   --font-size-text-navbar-mobile: 0.8rem;
   --font-size-icon-menu: 1.3rem;
+
+  /* border */
+  --primary-border: 1px solid var(--icon-color-grey);
+
+  /* Z indices */
+  --z-popup: 2;
 
   background-color: var(--primary-bg-color);
   color: var(--primary-text-color);

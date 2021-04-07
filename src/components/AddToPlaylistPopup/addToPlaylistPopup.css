@@ -1,0 +1,64 @@
+.container-addToPlaylist {
+  /* positioning */
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  max-height: 60vh;
+
+  /* display and alignment */
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+
+  background-color: var(--primary-bg-color);
+  z-index: var(--z-popup);
+}
+
+.container-addToPlaylist .header {
+  border-bottom: var(--primary-border);
+}
+
+.container-addToPlaylist .container-playlists {
+  padding: 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.container-addToPlaylist button {
+  background: transparent;
+  outline: none;
+  border: none;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+.btn-addNewPlaylist {
+  color: var(--primary-blue-color);
+  padding: 0;
+}
+
+.btn-addNewPlaylist .icon {
+  position: relative;
+  top: 2px;
+}
+
+.container-addToPlaylist .btn-done {
+  width: 100%;
+  color: var(--primary-text-color);
+  text-align: left;
+  padding: 0.5rem 1rem;
+
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  border-top: var(--primary-border);
+}
+
+.btn-done .icon {
+  font-size: 1.3rem;
+  position: relative;
+  top: 2px;
+}

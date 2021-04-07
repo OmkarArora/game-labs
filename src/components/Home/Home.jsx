@@ -3,6 +3,7 @@ import { useNav } from "../../contexts";
 import { VideoCard } from "../VideoCard/VideoCard";
 import { useAllVideos, usePlaylists } from "../../contexts";
 import "./home.css";
+import { AddToPlaylistPopup } from "../AddToPlaylistPopup/AddToPlaylistPopup";
 
 export const Home = () => {
   const { setActiveNavLink } = useNav();
@@ -24,6 +25,7 @@ export const Home = () => {
           runtime={runtime}
         />
       ))}
+      <AddToPlaylistPopup/>
     </div>
   );
 };
