@@ -7,14 +7,14 @@ export const reducerFn = (state, action) => {
     switch (action.type) {
       case "ADD_VIDEO_TO_PLAYLIST":
         //payload: {playlistId: "", video: {id, title, thumbnail, runtime}}
-        _state = { ...state };
+        _state = JSON.parse(JSON.stringify(state));
         const { playlistId, video } = action.payload;
         playlist = _state.playlists.find((item) => item.id === playlistId);
         playlist.videos.push(video);
         return _state;
       case "REMOVE_VIDEO_FROM_PLAYLIST":
         //payload: {playlistId: "", videoId: ""}
-        _state = { ...state };
+        _state = JSON.parse(JSON.stringify(state));
         playlist = _state.playlists.find(
           (item) => item.id === action.payload.playlistId
         );

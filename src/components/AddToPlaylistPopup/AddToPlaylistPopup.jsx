@@ -20,6 +20,7 @@ export const AddToPlaylistPopup = ({ video: propsVideo }) => {
 
   const handlePlaylistCheckbox = (playlistId, isChecked) => {
     let playlist = playlists.find((item) => item.id === playlistId);
+    
     if (isChecked) {
       if (!playlist.videos.find((item) => item.id === propsVideo.id)) {
         return dispatch({
@@ -35,7 +36,6 @@ export const AddToPlaylistPopup = ({ video: propsVideo }) => {
         });
       }
     }
-    return;
   };
 
   const isPlaylistChecked = (id) => {
