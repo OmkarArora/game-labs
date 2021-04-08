@@ -1,0 +1,7 @@
+.container-categorySelect {
+  display: flex;
+  gap: 0.5rem;
+  width: 100vw;
+  overflow-x: auto;
+  padding: 0 0.5rem;
+}
