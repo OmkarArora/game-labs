@@ -1,0 +1,58 @@
+.overlay-createPlaylist {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--primary-overlay);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: var(--z-createPlaylistModal);
+}
+
+.modal-createPlaylist {
+  background-color: var(--primary-bg-color);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-size: 1.2rem;
+  padding: 1rem;
+}
+
+.overlay-createPlaylist .modal-createPlaylist .header {
+  padding: 0 0 0.5rem 0;
+  border-bottom: none;
+}
+
+.modal-createPlaylist input {
+  font-family: inherit;
+  font-size: inherit;
+  background: transparent;
+  outline: none;
+  border: none;
+  border-bottom: var(--primary-border);
+  color: var(--primary-text-color);
+}
+
+.modal-createPlaylist .area-action {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.modal-createPlaylist button {
+  font-family: inherit;
+  font-size: 1.1rem;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  color: var(--primary-blue-color);
+}
+
+.modal-createPlaylist button:disabled {
+  opacity: 0.6;
+}

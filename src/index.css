@@ -11,7 +11,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
   /* colors */
-  --primary-bg-color: #181818;
+  --primary-bg-color: rgba(24, 24, 24, 1);
+  --primary-overlay: rgba(24, 24, 24, 0.8);
   --accent-bg-color: #282828;
   --primary-text-color: #fff;
   --icon-color-grey: #888888;
@@ -27,6 +28,7 @@ body {
 
   /* Z indices */
   --z-popup: 2;
+  --z-createPlaylistModal: 3;
 
   background-color: var(--primary-bg-color);
   color: var(--primary-text-color);

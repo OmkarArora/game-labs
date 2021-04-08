@@ -1,26 +1,24 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FiCheck, FiPlus } from "react-icons/fi";
 import { usePlaylists } from "../../contexts";
+import { CreatePlaylistModal } from "../CreatePlaylistModal/CreatePlaylistModal";
 import "./addToPlaylistPopup.css";
 
 export const AddToPlaylistPopup = ({ video: propsVideo }) => {
-  const [selectedPlaylists, setSelectedPlaylists] = useState([]);
   const { playlists, dispatch } = usePlaylists();
-
-  useEffect(() => {
-    let _selectedPlaylists = [];
-    for (let i = 0; i < playlists.length; i++) {
-      if (playlists[i].videos.find((video) => video.id === propsVideo.id)) {
-        _selectedPlaylists.push(playlists[i].id);
-        break;
-      }
+  const [modalVisibility, setModalVisibility] = useState(false);
+console.log({playlists})
+  let selectedPlaylists = [];
+  for (let i = 0; i < playlists.length; i++) {
+    if (playlists[i].videos.find((video) => video.id === propsVideo.id)) {
+      selectedPlaylists.push(playlists[i].id);
+      break;
     }
-    setSelectedPlaylists(_selectedPlaylists);
-  }, [playlists, propsVideo]);
+  }
 
   const handlePlaylistCheckbox = (playlistId, isChecked) => {
     let playlist = playlists.find((item) => item.id === playlistId);
-    
+
     if (isChecked) {
       if (!playlist.videos.find((item) => item.id === propsVideo.id)) {
         return dispatch({
@@ -39,7 +37,7 @@ export const AddToPlaylistPopup = ({ video: propsVideo }) => {
   };
 
   const isPlaylistChecked = (id) => {
-	//   needed so first time we dont get null/undefined as checked value
+    //   needed so first time we dont get null/undefined as checked value
     if (selectedPlaylists.length === 0) return false;
     return selectedPlaylists.find((_id) => _id === id);
   };
@@ -48,7 +46,7 @@ export const AddToPlaylistPopup = ({ video: propsVideo }) => {
     <div className="container-addToPlaylist">
       <div className="header">
         <div>Save video to...</div>
-        <button className="btn-addNewPlaylist">
+        <button className="btn-addNewPlaylist" onClick={() => setModalVisibility(true)}>
           <span className="icon icon-plus">
             <FiPlus />
           </span>{" "}
@@ -65,10 +63,9 @@ export const AddToPlaylistPopup = ({ video: propsVideo }) => {
                 handlePlaylistCheckbox(item.id, e.target.checked)
               }
             />
-            Valo
+            {item.title}
           </div>
         ))}
-
       </div>
       <div className="footer">
         <button className="btn-done">
@@ -78,6 +75,12 @@ export const AddToPlaylistPopup = ({ video: propsVideo }) => {
           Done
         </button>
       </div>
+      {modalVisibility && (
+        <CreatePlaylistModal
+          video={propsVideo}
+          setModalVisibility={(arg) => setModalVisibility(arg)}
+        />
+      )}
     </div>
   );
 };

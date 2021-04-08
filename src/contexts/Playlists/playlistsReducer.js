@@ -1,20 +1,19 @@
 import { v4 as uuid } from "uuid";
 
 export const reducerFn = (state, action) => {
-  let _state = null;
+  let _state = JSON.parse(JSON.stringify(state));
   let playlist = null;
   if (action) {
     switch (action.type) {
       case "ADD_VIDEO_TO_PLAYLIST":
         //payload: {playlistId: "", video: {id, title, thumbnail, runtime}}
-        _state = JSON.parse(JSON.stringify(state));
         const { playlistId, video } = action.payload;
         playlist = _state.playlists.find((item) => item.id === playlistId);
         playlist.videos.push(video);
         return _state;
+
       case "REMOVE_VIDEO_FROM_PLAYLIST":
         //payload: {playlistId: "", videoId: ""}
-        _state = JSON.parse(JSON.stringify(state));
         playlist = _state.playlists.find(
           (item) => item.id === action.payload.playlistId
         );
@@ -22,16 +21,22 @@ export const reducerFn = (state, action) => {
           (video) => video.id !== action.payload.videoId
         );
         return _state;
+
       case "CREATE_NEW_PLAYLIST":
-        //payload:{title: ""}
-        playlist = { id: uuid(), title: action.payload.id, videos: [] };
-        return { ...state, playlists: [...state.playlists, playlist] };
+        //payload:{title: "", id: ""}
+        playlist = {
+          id: action.payload.id ? action.payload.id : uuid(),
+          title: action.payload.title,
+          videos: [],
+        };
+        return { ..._state, playlists: [..._state.playlists, playlist] };
+        
       case "DELETE_PLAYLIST":
         //payload: {playlisId : ""}
-        const playlists = state.playlists.filter(
+        const playlists = _state.playlists.filter(
           (playlist) => playlist.id !== action.payload.playlistId
         );
-        return { ...state, playlists: playlists };
+        return { ..._state, playlists: playlists };
       default:
         return state;
     }
