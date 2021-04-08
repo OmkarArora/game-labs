@@ -46,7 +46,10 @@ export const AddToPlaylistPopup = ({ video: propsVideo }) => {
     <div className="container-addToPlaylist">
       <div className="header">
         <div>Save video to...</div>
-        <button className="btn-addNewPlaylist" onClick={() => setModalVisibility(true)}>
+        <button
+          className="btn-addNewPlaylist"
+          onClick={() => setModalVisibility(true)}
+        >
           <span className="icon icon-plus">
             <FiPlus />
           </span>{" "}
