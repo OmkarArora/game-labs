@@ -4,17 +4,9 @@ import { usePlaylists } from "../../contexts";
 import { CreatePlaylistModal } from "../CreatePlaylistModal/CreatePlaylistModal";
 import "./addToPlaylistPopup.css";
 
-export const AddToPlaylistPopup = ({ video: propsVideo }) => {
+export const AddToPlaylistPopup = ({ onClose, video: propsVideo }) => {
   const { playlists, dispatch } = usePlaylists();
   const [modalVisibility, setModalVisibility] = useState(false);
-
-  let selectedPlaylists = [];
-  for (let i = 0; i < playlists.length; i++) {
-    if (playlists[i].videos.find((video) => video.id === propsVideo.id)) {
-      selectedPlaylists.push(playlists[i].id);
-      break;
-    }
-  }
 
   const handlePlaylistCheckbox = (playlistId, isChecked) => {
     let playlist = playlists.find((item) => item.id === playlistId);
@@ -36,10 +28,10 @@ export const AddToPlaylistPopup = ({ video: propsVideo }) => {
     }
   };
 
-  const isPlaylistChecked = (id) => {
-    //   needed so first time we dont get null/undefined as checked value
-    if (selectedPlaylists.length === 0) return false;
-    return selectedPlaylists.find((_id) => _id === id);
+  const isPlaylistChecked = (playlistId) => {
+    const playlist = playlists.find((item) => item.id === playlistId);
+    if (playlist.videos.find((item) => item.id === propsVideo.id)) return true;
+    return false;
   };
 
   return (
@@ -71,7 +63,7 @@ export const AddToPlaylistPopup = ({ video: propsVideo }) => {
         ))}
       </div>
       <div className="footer">
-        <button className="btn-done">
+        <button className="btn-done" onClick={() => onClose(false)}>
           <span className="icon icon-check">
             <FiCheck />
           </span>
@@ -80,6 +72,7 @@ export const AddToPlaylistPopup = ({ video: propsVideo }) => {
       </div>
       {modalVisibility && (
         <CreatePlaylistModal
+          onClosePopup={(arg) => onClose(arg)}
           video={propsVideo}
           setModalVisibility={(arg) => setModalVisibility(arg)}
         />

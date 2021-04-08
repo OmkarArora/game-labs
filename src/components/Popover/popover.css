@@ -1,0 +1,9 @@
+.popover {
+  position: absolute;
+  top: 0.3rem;
+  right: 1.3rem;
+  background-color: var(--accent-bg-color);
+  width: max-content;
+  padding: 0.5rem 1rem;
+  font-size: 1.1rem;
+}

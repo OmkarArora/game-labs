@@ -1,11 +1,19 @@
 import { v4 as uuid } from "uuid";
-import { useState } from "react";
-import { usePlaylists } from "../../contexts";
+import { useState, useRef, useEffect } from "react";
+import { usePlaylists, useAlert } from "../../contexts";
 import "./createPlaylistModal.css";
 
-export const CreatePlaylistModal = ({ video, setModalVisibility }) => {
+export const CreatePlaylistModal = ({
+  onClosePopup,
+  video,
+  setModalVisibility,
+}) => {
   const [title, setTitle] = useState("");
+  const { setSnackbar } = useAlert();
   const { dispatch } = usePlaylists();
+
+  const inputRef = useRef(null);
+  useEffect(() => inputRef.current.focus());
 
   const createNewPlaylist = () => {
     const playlistId = uuid();
@@ -19,8 +27,15 @@ export const CreatePlaylistModal = ({ video, setModalVisibility }) => {
         type: "ADD_VIDEO_TO_PLAYLIST",
         payload: { playlistId: playlistId, video: video },
       });
-	
+
+    setSnackbar({
+      openStatus: true,
+      type: "success",
+      data: "Playlist created",
+    });
+
     setModalVisibility(false);
+    onClosePopup(false);
   };
 
   return (
@@ -28,6 +43,7 @@ export const CreatePlaylistModal = ({ video, setModalVisibility }) => {
       <div className="modal-createPlaylist">
         <div className="header">New playlist</div>
         <input
+        ref={inputRef}
           type="text"
           placeholder="Title"
           onChange={(e) => setTitle(e.target.value)}
