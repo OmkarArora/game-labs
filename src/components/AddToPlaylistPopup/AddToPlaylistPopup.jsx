@@ -1,26 +1,21 @@
-import { useEffect, useState } from "react";
 import { FiCheck, FiPlus } from "react-icons/fi";
 import { usePlaylists } from "../../contexts";
 import "./addToPlaylistPopup.css";
 
 export const AddToPlaylistPopup = ({ video: propsVideo }) => {
-  const [selectedPlaylists, setSelectedPlaylists] = useState([]);
   const { playlists, dispatch } = usePlaylists();
 
-  useEffect(() => {
-    let _selectedPlaylists = [];
-    for (let i = 0; i < playlists.length; i++) {
-      if (playlists[i].videos.find((video) => video.id === propsVideo.id)) {
-        _selectedPlaylists.push(playlists[i].id);
-        break;
-      }
+  let selectedPlaylists = [];
+  for (let i = 0; i < playlists.length; i++) {
+    if (playlists[i].videos.find((video) => video.id === propsVideo.id)) {
+      selectedPlaylists.push(playlists[i].id);
+      break;
     }
-    setSelectedPlaylists(_selectedPlaylists);
-  }, [playlists, propsVideo]);
+  }
 
   const handlePlaylistCheckbox = (playlistId, isChecked) => {
     let playlist = playlists.find((item) => item.id === playlistId);
-    
+
     if (isChecked) {
       if (!playlist.videos.find((item) => item.id === propsVideo.id)) {
         return dispatch({
@@ -39,7 +34,7 @@ export const AddToPlaylistPopup = ({ video: propsVideo }) => {
   };
 
   const isPlaylistChecked = (id) => {
-	//   needed so first time we dont get null/undefined as checked value
+    //   needed so first time we dont get null/undefined as checked value
     if (selectedPlaylists.length === 0) return false;
     return selectedPlaylists.find((_id) => _id === id);
   };
@@ -68,7 +63,6 @@ export const AddToPlaylistPopup = ({ video: propsVideo }) => {
             Valo
           </div>
         ))}
-
       </div>
       <div className="footer">
         <button className="btn-done">
