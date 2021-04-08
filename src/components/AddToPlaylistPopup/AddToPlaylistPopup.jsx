@@ -7,7 +7,7 @@ import "./addToPlaylistPopup.css";
 export const AddToPlaylistPopup = ({ video: propsVideo }) => {
   const { playlists, dispatch } = usePlaylists();
   const [modalVisibility, setModalVisibility] = useState(false);
-console.log({playlists})
+
   let selectedPlaylists = [];
   for (let i = 0; i < playlists.length; i++) {
     if (playlists[i].videos.find((video) => video.id === propsVideo.id)) {
