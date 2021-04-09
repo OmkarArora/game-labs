@@ -3,8 +3,9 @@ import "./popover.css";
 export const Popover = ({ popoverMenu }) => {
   return (
     <div className="popover">
-      {popoverMenu.map((item) => (
+      {popoverMenu.map((item, index) => (
         <div
+          key={`popover-item${index}`}
           onClick={() => {
             item.performAction();
             item.onClose();

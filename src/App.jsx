@@ -1,7 +1,14 @@
 import { Routes, Route } from "react-router";
 import "./App.css";
-import { Guides, Header, Home, Library, NavbarMobile } from "./components";
-import { ExplorePlaylist } from "./components/ExplorePlaylist/ExplorePlaylist";
+import {
+  Guides,
+  Header,
+  Home,
+  Library,
+  NavbarMobile,
+  ExplorePlaylist,
+  ExploreVideo,
+} from "./components";
 
 const App = () => {
   return (
@@ -15,6 +22,7 @@ const App = () => {
           <Route path="/guides" element={<Guides />} />
           <Route path="/library" element={<Library />} />
           <Route path="/playlist/:playlistId" element={<ExplorePlaylist />} />
+          <Route path="/video/:videoId" element={<ExploreVideo />} />
         </Routes>
       </main>
       <div className="container-footer">

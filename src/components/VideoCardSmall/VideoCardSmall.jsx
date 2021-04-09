@@ -1,9 +1,10 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { usePlaylists } from "../../contexts";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { Popover } from "../Popover/Popover";
 import { AddToPlaylistPopup } from "../AddToPlaylistPopup/AddToPlaylistPopup";
 import "./videoCardSmall.css";
-import { usePlaylists } from "../../contexts";
 
 export const VideoCardSmall = ({
   playlistId,
@@ -40,11 +41,17 @@ export const VideoCardSmall = ({
 
   return (
     <div className="card-videoSmall">
-      <img src={thumbnail} alt={title} />
+      <Link to={`/video/${id}`}>
+        <img src={thumbnail} alt={title} />
+      </Link>
       <div className="details">
-        <div className="heading">{title}</div>
-        <span className="icon-menu remove-tap-highlight">
-          <HiOutlineDotsVertical onClick={() => setPopoverVisibility(true)} />
+        <Link to={`/video/${id}`}>
+          <div className="heading">{title}</div>
+        </Link>
+        <span className="icon icon-menu remove-tap-highlight">
+          <HiOutlineDotsVertical
+            onClick={() => setPopoverVisibility((prev) => !prev)}
+          />
           {popoverVisibilty && <Popover popoverMenu={popoverMenu} />}
         </span>
       </div>

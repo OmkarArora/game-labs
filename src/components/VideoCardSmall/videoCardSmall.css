@@ -3,6 +3,11 @@
   gap: 1rem;
 }
 
+.card-videoSmall a {
+  text-decoration: none;
+  color: var(--primary-text-color);
+}
+
 .card-videoSmall img {
   width: 8rem;
   height: auto;

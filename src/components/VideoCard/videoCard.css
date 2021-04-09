@@ -3,6 +3,11 @@
   width: 100%;
 }
 
+.container-videoCard a {
+  text-decoration: none;
+  color: var(--primary-text-color);
+}
+
 .container-videoCard .container-cardCustom {
   max-width: 100%;
   background-color: var(--primary-bg-color);
@@ -12,7 +17,7 @@
 .content-videoCard {
   display: flex;
   justify-content: space-between;
-  padding: 0.5rem 0.3rem;
+  padding: 0.2rem 0.3rem;
 }
 
 .content-videoCard .container-cardContent {

@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   Avatar,
   CardCustom,
@@ -10,7 +12,6 @@ import { AddToPlaylistPopup } from "../AddToPlaylistPopup/AddToPlaylistPopup";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { getIcon } from "./getIcon";
 import "./videoCard.css";
-import { useState } from "react";
 
 export const VideoCard = ({ id, title, category, thumbnail, runtime }) => {
   const primaryBgColor = "#181818";
@@ -31,7 +32,9 @@ export const VideoCard = ({ id, title, category, thumbnail, runtime }) => {
   return (
     <div className="container-videoCard">
       <CardCustom>
-        <CardImage image={thumbnail} title="yoru" />
+        <Link to={`/video/${id}`}>
+          <CardImage image={thumbnail} title="yoru" />
+        </Link>
         <div className="content-videoCard">
           <CardContent>
             <Avatar
@@ -41,12 +44,12 @@ export const VideoCard = ({ id, title, category, thumbnail, runtime }) => {
               height="2rem"
               width="2rem"
             />
-            <div>{title}</div>
+           <Link to={`/video/${id}`}><div>{title}</div></Link>
           </CardContent>
           <CardActions>
-            <span className="icon-menu remove-tap-highlight">
+            <span className="icon icon-menu remove-tap-highlight">
               <HiOutlineDotsVertical
-                onClick={() => setPopoverVisibility(true)}
+                onClick={() => setPopoverVisibility(prev => !prev)}
               />
               {popoverVisibilty && <Popover popoverMenu={popoverMenu} />}
             </span>
