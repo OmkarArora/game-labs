@@ -39,21 +39,26 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
-.shoto-container-alert {
-  width: max-content !important;
+.shoto-snackbar-container .shoto-container-alert {
+  width: max-content;
 }
 
 .pill {
   color: var(--primary-text-color);
-  background-color: var(--accent-bg-color);
-  /* background-color: rgba(255, 255, 255, 0.1); */
+  background-color: var(--primary-bg-color);
   border: 1px solid var(--primary-text-color);
   border-radius: 2rem;
-  padding: 0.3rem 1rem;
+  padding: 0.4rem 1rem;
   font-weight: 600;
 }
 
 .pill.active {
   color: var(--primary-bg-color);
   background-color: var(--primary-text-color);
+}
+
+.container-videos {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }

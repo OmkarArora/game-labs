@@ -13,7 +13,6 @@
 
   background-color: var(--accent-bg-color);
   z-index: var(--z-popup);
-  font-size: 1.2rem;
 }
 
 .container-addToPlaylist .header {

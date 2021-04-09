@@ -3,5 +3,10 @@
   gap: 0.5rem;
   width: 100vw;
   overflow-x: auto;
-  padding: 0 0.5rem;
+  padding: 0.2rem 0.5rem 0.7rem;
+  border-bottom: var(--primary-border);
+}
+
+.guides .container-videos {
+  margin-top: 1rem;
 }

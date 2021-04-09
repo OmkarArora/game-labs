@@ -1,14 +1,17 @@
 import { useState } from "react";
 import { FiCheck, FiPlus } from "react-icons/fi";
-import { usePlaylists } from "../../contexts";
+import { usePlaylists, useAlert } from "../../contexts";
 import { CreatePlaylistModal } from "../CreatePlaylistModal/CreatePlaylistModal";
 import "./addToPlaylistPopup.css";
 
 export const AddToPlaylistPopup = ({ onClose, video: propsVideo }) => {
   const { playlists, dispatch } = usePlaylists();
   const [modalVisibility, setModalVisibility] = useState(false);
+  const [isPlaylistUpdated, setPlaylistUpdate] = useState(false);
+  const { setSnackbar } = useAlert();
 
   const handlePlaylistCheckbox = (playlistId, isChecked) => {
+    setPlaylistUpdate(true);
     let playlist = playlists.find((item) => item.id === playlistId);
 
     if (isChecked) {
@@ -63,7 +66,18 @@ export const AddToPlaylistPopup = ({ onClose, video: propsVideo }) => {
         ))}
       </div>
       <div className="footer">
-        <button className="btn-done" onClick={() => onClose(false)}>
+        <button
+          className="btn-done"
+          onClick={() => {
+            onClose(false);
+            if (isPlaylistUpdated)
+              return setSnackbar({
+                openStatus: true,
+                type: "info",
+                data: "Playlist updated",
+              });
+          }}
+        >
           <span className="icon icon-check">
             <FiCheck />
           </span>

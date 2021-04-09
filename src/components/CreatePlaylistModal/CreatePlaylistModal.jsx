@@ -35,7 +35,8 @@ export const CreatePlaylistModal = ({
     });
 
     setModalVisibility(false);
-    onClosePopup(false);
+    if(onClosePopup)
+      onClosePopup(false);
   };
 
   return (

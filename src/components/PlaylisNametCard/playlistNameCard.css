@@ -1,0 +1,20 @@
+.card-playlist {
+  display: flex;
+  gap: 1rem;
+}
+
+.card-playlist img {
+  width: 5rem;
+  height: auto;
+}
+
+.details-playlist {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.details-playlist .video-count {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+}

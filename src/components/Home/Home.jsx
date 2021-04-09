@@ -11,7 +11,7 @@ export const Home = () => {
   useEffect(() => setActiveNavLink("home"));
 
   return (
-    <div className="home">
+    <div className="home container-videos">
       {allVideos.map(({ id, title, category, thumbnail, runtime }) => (
         <VideoCard
           key={id}
