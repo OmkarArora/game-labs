@@ -12,7 +12,7 @@ export const Library = () => {
 
   const [modalVisibility, setModalVisibility] = useState(false);
 
-  const { playlists, dispatch } = usePlaylists();
+  const { playlists } = usePlaylists();
 
   return (
     <div className="library">
