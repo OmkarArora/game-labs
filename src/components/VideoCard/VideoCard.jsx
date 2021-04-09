@@ -20,6 +20,14 @@ export const VideoCard = ({ id, title, category, thumbnail, runtime }) => {
     setAddToPlaylistPopupVisibility,
   ] = useState(false);
 
+  const popoverMenu = [
+    {
+      text: "Save to playlist",
+      performAction: () => setAddToPlaylistPopupVisibility(true),
+      onClose: () => setPopoverVisibility(false),
+    },
+  ];
+
   return (
     <div className="container-videoCard">
       <CardCustom>
@@ -40,12 +48,7 @@ export const VideoCard = ({ id, title, category, thumbnail, runtime }) => {
               <HiOutlineDotsVertical
                 onClick={() => setPopoverVisibility(true)}
               />
-              {popoverVisibilty && (
-                <Popover
-                  onClose={(arg) => setPopoverVisibility(arg)}
-                  performAction={(arg) => setAddToPlaylistPopupVisibility(arg)}
-                />
-              )}
+              {popoverVisibilty && <Popover popoverMenu={popoverMenu} />}
             </span>
           </CardActions>
         </div>

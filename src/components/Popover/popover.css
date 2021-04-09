@@ -5,5 +5,9 @@
   background-color: var(--accent-bg-color);
   width: max-content;
   padding: 0.5rem 1rem;
-  font-size: 1rem;
+  font-size: 0.8rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
 }

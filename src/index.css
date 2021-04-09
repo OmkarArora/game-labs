@@ -50,6 +50,7 @@ body {
   border-radius: 2rem;
   padding: 0.4rem 1rem;
   font-weight: 600;
+  font-size: 0.8rem;
 }
 
 .pill.active {
@@ -61,4 +62,10 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+}
+
+.disclaimer-empty {
+  color: var(--icon-color-grey);
+  font-size: 0.9rem;
+  text-align: center;
 }

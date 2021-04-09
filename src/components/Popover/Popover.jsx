@@ -1,16 +1,18 @@
 import "./popover.css";
 
-export const Popover = ({ onClose, performAction }) => {
+export const Popover = ({ popoverMenu }) => {
   return (
     <div className="popover">
-      <div
-        onClick={() => {
-          performAction(true);
-          onClose(false);
-        }}
-      >
-        Save to playlist
-      </div>
+      {popoverMenu.map((item) => (
+        <div
+          onClick={() => {
+            item.performAction();
+            item.onClose();
+          }}
+        >
+          {item.text}
+        </div>
+      ))}
     </div>
   );
 };

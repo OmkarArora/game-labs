@@ -6,6 +6,7 @@ import "./guides.css";
 export const Guides = () => {
   const { setActiveNavLink } = useNav();
   useEffect(() => setActiveNavLink("guides"), [setActiveNavLink]);
+  
   const { categories } = useCategory();
   const { guideVideos } = useGuides();
   const [activeCategory, setActiveCategory] = useState(

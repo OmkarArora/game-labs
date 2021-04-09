@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import {Link} from "react-router-dom";
 import { useNav, usePlaylists } from "../../contexts";
 import { PlaylistNameCard } from "../PlaylisNametCard/PlaylistNameCard";
 import { CreatePlaylistModal } from "../CreatePlaylistModal/CreatePlaylistModal";
@@ -18,12 +19,28 @@ export const Library = () => {
     <div className="library">
       <div className="heading">Playlists</div>
       <div className="container-playlists">
-        <bbutton className="btn-addNewPlaylist"  onClick={() => setModalVisibility(true)}> <span className="icon icon-plus">
+        <div
+          className="btn-addNewPlaylist"
+          onClick={() => setModalVisibility(true)}
+        >
+          {" "}
+          <span className="icon icon-plus">
             <FiPlus />
           </span>{" "}
-          New playlist</bbutton>
+          New playlist
+        </div>
         {playlists.map((playlist) => (
-          <PlaylistNameCard key={playlist.id} image={playlist.videos.length===0?BlankImage: playlist.videos[0].thumbnail} title={playlist.title} numOfVideos={playlist.videos.length}/>
+          <Link to={`/playlist/${playlist.id}`} key={playlist.id}>
+            <PlaylistNameCard
+              image={
+                playlist.videos.length === 0
+                  ? BlankImage
+                  : playlist.videos[0].thumbnail
+              }
+              title={playlist.title}
+              numOfVideos={playlist.videos.length}
+            />
+          </Link>
         ))}
       </div>
       {modalVisibility && (
