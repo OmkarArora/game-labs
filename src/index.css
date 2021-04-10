@@ -51,6 +51,7 @@ body {
   padding: 0.4rem 1rem;
   font-weight: 600;
   font-size: 0.8rem;
+  cursor: pointer;
 }
 
 .pill.active {

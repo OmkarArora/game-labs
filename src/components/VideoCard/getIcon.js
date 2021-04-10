@@ -3,9 +3,9 @@ import FortniteIcon from "../../images/fortnite-icon.png";
 
 export const getIcon = (category) => {
 	switch(category){
-		case "valorant":
+		case "1":
 			return ValorantIcon;
-		case "fortnite":
+		case "2":
 			return FortniteIcon;
 		default:
 			return ValorantIcon;

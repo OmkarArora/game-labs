@@ -12,12 +12,12 @@ export const Home = () => {
 
   return (
     <div className="home container-videos">
-      {allVideos.map(({ id, title, category, thumbnail, runtime }) => (
+      {allVideos.map(({ id, title, categoryId, thumbnail, runtime }) => (
         <VideoCard
           key={id}
           id={id}
           title={title}
-          category={category}
+          category={categoryId}
           thumbnail={thumbnail}
           runtime={runtime}
         />

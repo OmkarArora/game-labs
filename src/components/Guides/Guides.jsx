@@ -33,12 +33,12 @@ export const Guides = () => {
         ))}
       </div>
       <div className="container-videos">
-        {renderData.map(({ id, title, category, thumbnail, runtime }) => (
+        {renderData.map(({ id, title, categoryId, thumbnail, runtime }) => (
           <VideoCard
             key={id}
             id={id}
             title={title}
-            category={category}
+            category={categoryId}
             thumbnail={thumbnail}
             runtime={runtime}
           />
