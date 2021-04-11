@@ -10,12 +10,28 @@
 }
 
 .video-info {
-  padding: 0 0.5rem;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.video-info .icon-add {
+  font-size: 1.3rem;
+  position: relative;
+  top: 2px;
 }
 
 @media only screen and (min-width: 768px) {
   .explore-video iframe {
-    width: calc(16 * 3rem);
-    height: calc(9 * 3rem);
+    /* width: calc(16 * 5rem);
+    height: calc(9 * 5rem); */
+    max-width: 80%;
+    height: 550px;
+  }
+
+  .video-info {
+    justify-content: flex-start;
+    gap: 1rem;
   }
 }
