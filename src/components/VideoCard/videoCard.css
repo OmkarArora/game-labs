@@ -23,20 +23,3 @@
 .container-cardCustom .content-videoCard .container-cardContent {
   flex-direction: row;
 }
-
-.container-videoCard .container-cardActions .icon-menu {
-  font-size: var(--font-size-icon-menu);
-  color: var(--primary-text-color);
-  cursor: pointer;
-  position: relative;
-}
-
-@media only screen and (min-width: 768px) {
-  .container-videoCard .container-cardActions .icon-menu {
-    color: var(--icon-color-grey);
-  }
-
-  .container-videoCard .container-cardActions .icon-menu:hover {
-    color: var(--primary-text-color);
-  }
-}

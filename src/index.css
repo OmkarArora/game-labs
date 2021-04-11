@@ -85,3 +85,20 @@ body {
     gap: 1.2rem;
   }
 }
+
+.icon-menu {
+  font-size: var(--font-size-icon-menu);
+  color: var(--primary-text-color);
+  cursor: pointer;
+  position: relative;
+}
+
+@media only screen and (min-width: 768px) {
+  .icon-menu {
+    color: var(--icon-color-grey);
+  }
+
+  .icon-menu:hover {
+    color: var(--primary-text-color);
+  }
+}
