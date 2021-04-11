@@ -28,5 +28,5 @@ export const data = [
 		video: "https://www.youtube.com/embed/6MerElOo2eA",
 		descripton: "In this video, I showcase 11 advanced techniques that always work in Fortnite Battle Royale.",
 		runtime: {minutes: 13, seconds: 26}
-	}
+	},
 ]

@@ -1,11 +1,21 @@
+.guides {
+  width: 100vw;
+}
+
 .container-categorySelect {
   display: flex;
   gap: 0.5rem;
   width: 100vw;
   overflow-x: auto;
-  padding: 0.2rem 0.5rem 0rem;
+  padding: 0.5rem 0.5rem 0rem;
 }
 
 .guides .container-videos {
   margin-top: 1rem;
+}
+
+@media only screen and (min-width: 768px) {
+  .container-categorySelect {
+    padding: 0.2rem 0.5rem 0rem;
+  }
 }

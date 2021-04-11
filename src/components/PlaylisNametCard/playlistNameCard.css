@@ -8,13 +8,26 @@
   height: auto;
 }
 
+.card-playlist .icon-menu {
+  position: relative;
+}
+
 .details-playlist {
+  width: 100%;
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
+  justify-content: space-between;
   gap: 0.2rem;
 }
 
 .details-playlist .video-count {
   font-size: 0.9rem;
   color: rgba(255, 255, 255, 0.6);
+}
+
+@media only screen and (min-width: 768px) {
+  .card-playlist img {
+    width: 10rem;
+    height: auto;
+  }
 }
