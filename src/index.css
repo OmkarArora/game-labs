@@ -23,6 +23,9 @@ body {
   --font-size-text-navbar-mobile: 0.8rem;
   --font-size-icon-menu: 1.3rem;
 
+  --height-header: 3rem;
+  --width-sidenav: 5rem;
+
   /* border */
   --primary-border: 1px solid var(--icon-color-grey);
 
@@ -73,4 +76,12 @@ body {
 
 .icon {
   cursor: pointer;
+}
+
+@media only screen and (min-width: 500px) {
+  .container-videos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.2rem;
+  }
 }

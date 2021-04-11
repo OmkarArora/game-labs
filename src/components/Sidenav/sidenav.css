@@ -1,0 +1,15 @@
+.sidenav {
+  position: fixed;
+  left: 0;
+  top: var(--height-header);
+  border-right: var(--primary-border);
+  width: var(--width-sidenav);
+  height: 100%;
+  padding: 1rem 0 0 0;
+}
+
+.sidenav .navbar-mobile {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}

@@ -7,6 +7,7 @@
 
 .container-header {
   border-bottom: var(--primary-border);
+  height: var(--height-header);
 }
 
 .main {
@@ -16,4 +17,16 @@
 
 .container-footer {
   border-top: var(--primary-border);
+}
+
+@media only screen and (min-width: 768px) {
+  .App {
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    grid-template-rows: auto 1fr;
+  }
+  .main {
+    margin-left: calc(var(--width-sidenav) + 1rem);
+  }
 }
