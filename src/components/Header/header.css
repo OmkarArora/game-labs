@@ -4,3 +4,13 @@
   align-items: center;
   padding: 0.5rem 1rem;
 }
+
+.header .logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header .logo img {
+  width: calc(var(--height-header) - 1rem);
+}
