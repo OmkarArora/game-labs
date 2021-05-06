@@ -20,6 +20,10 @@
   border-top: var(--primary-border);
 }
 
+.container-sidenav {
+  display: none;
+}
+
 @media only screen and (min-width: 768px) {
   .App {
     height: 100vh;
@@ -31,5 +35,13 @@
     margin-left: calc(var(--width-sidenav) + 1rem);
     margin-top: 1rem;
     margin-right: 1rem;
+  }
+  .container-footer {
+    display: none;
+  }
+  .container-sidenav {
+    display: block;
+    position: fixed;
+    left: 0;
   }
 }

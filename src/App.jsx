@@ -10,17 +10,14 @@ import {
   ExploreVideo,
   Sidenav,
 } from "./components";
-import { useWindowSize } from "./hooks";
 
 const App = () => {
-  const windowWidth = useWindowSize().width;
-
   return (
     <div className="App">
       <div className="container-header">
         <Header />
       </div>
-      {windowWidth >= 768 && <Sidenav />}
+      <div className="container-sidenav"><Sidenav /></div>
       <main className="main">
         <Routes>
           <Route path="/" element={<Home />} />
@@ -30,11 +27,9 @@ const App = () => {
           <Route path="/video/:videoId" element={<ExploreVideo />} />
         </Routes>
       </main>
-      {windowWidth < 768 && (
         <div className="container-footer">
           <NavbarMobile />
         </div>
-      )}
     </div>
   );
 };
