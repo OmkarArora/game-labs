@@ -6,3 +6,4 @@ export { NavbarMobile } from "./NavbarMobile/NavbarMobile";
 export { Sidenav } from "./Sidenav/Sidenav";
 export { ExplorePlaylist } from "./ExplorePlaylist/ExplorePlaylist";
 export { ExploreVideo } from "./ExploreVideo/ExploreVideo";
+export { Login } from "./Auth/Login";

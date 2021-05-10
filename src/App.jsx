@@ -9,6 +9,7 @@ import {
   ExplorePlaylist,
   ExploreVideo,
   Sidenav,
+  Login,
 } from "./components";
 
 const App = () => {
@@ -17,7 +18,9 @@ const App = () => {
       <div className="container-header">
         <Header />
       </div>
-      <div className="container-sidenav"><Sidenav /></div>
+      <div className="container-sidenav">
+        <Sidenav />
+      </div>
       <main className="main">
         <Routes>
           <Route path="/" element={<Home />} />
@@ -25,11 +28,12 @@ const App = () => {
           <Route path="/library" element={<Library />} />
           <Route path="/playlist/:playlistId" element={<ExplorePlaylist />} />
           <Route path="/video/:videoId" element={<ExploreVideo />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </main>
-        <div className="container-footer">
-          <NavbarMobile />
-        </div>
+      <div className="container-footer">
+        <NavbarMobile />
+      </div>
     </div>
   );
 };

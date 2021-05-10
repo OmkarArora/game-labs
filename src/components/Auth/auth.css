@@ -1,0 +1,57 @@
+.container-form-login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid black;
+}
+
+.form-login {
+  border: 1px solid black;
+  width: max-content;
+  padding: 1rem;
+  width: 100%;
+}
+
+.form-login input {
+  width: 100%;
+  padding: 0.5rem 0.2rem;
+  margin: 0.5rem 0;
+  outline: none;
+  font-size: 1rem;
+}
+
+.form-login .btn-submit {
+  width: 100%;
+  padding: 0.4rem 0;
+  color: white;
+  opacity: 0.95;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+.form-login .btn-submit:hover {
+  opacity: 1;
+}
+
+.label-password {
+  position: relative;
+}
+
+.icon-eye {
+  position: absolute;
+  right: 0.6rem;
+  top: 0.1rem;
+  font-size: 1.4rem;
+}
+
+.page-auth input {
+  background-color: var(--accent-bg-color);
+  outline: none;
+  border: none;
+  color: var(--primary-text-color);
+}
+
+.page-auth button {
+  background-color: var(--primary-bg-color);
+}

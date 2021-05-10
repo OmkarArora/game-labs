@@ -6,6 +6,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import {
   AlertProvider,
   AllVideosProvider,
+  AuthProvider,
   CategoryProvider,
   GuidesProvider,
   NavProvider,
@@ -15,19 +16,21 @@ import {
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <NavProvider>
-        <AlertProvider>
-          <CategoryProvider>
-            <AllVideosProvider>
-              <PlaylistsProvider>
-                <GuidesProvider>
-                  <App />
-                </GuidesProvider>
-              </PlaylistsProvider>
-            </AllVideosProvider>
-          </CategoryProvider>
-        </AlertProvider>
-      </NavProvider>
+      <AuthProvider>
+        <NavProvider>
+          <AlertProvider>
+            <CategoryProvider>
+              <AllVideosProvider>
+                <PlaylistsProvider>
+                  <GuidesProvider>
+                    <App />
+                  </GuidesProvider>
+                </PlaylistsProvider>
+              </AllVideosProvider>
+            </CategoryProvider>
+          </AlertProvider>
+        </NavProvider>
+      </AuthProvider>
     </Router>
   </React.StrictMode>,
   document.getElementById("root")
