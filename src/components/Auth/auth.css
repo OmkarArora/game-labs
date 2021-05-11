@@ -34,6 +34,12 @@
   opacity: 1;
 }
 
+.form-login .btn-submit:disabled {
+  /* color: var(--accent-bg-color); */
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .label-password {
   position: relative;
 }

@@ -7,3 +7,5 @@ export { Sidenav } from "./Sidenav/Sidenav";
 export { ExplorePlaylist } from "./ExplorePlaylist/ExplorePlaylist";
 export { ExploreVideo } from "./ExploreVideo/ExploreVideo";
 export { Login } from "./Auth/Login";
+export { SignUp } from "./Auth/SignUp";
+export { UserProfile } from "./UserProfile/UserProfile";

@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { useAuth, useAlert } from "../../contexts";
 import { LoadingState } from "../LoadingState/LoadingState";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./auth.css";
 
 export const Login = () => {
@@ -10,9 +10,21 @@ export const Login = () => {
   const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisibility] = useState(false);
 
-  const { loginUserWithCredentials, appState } = useAuth();
+  const { isUserLoggedIn, loginUserWithCredentials, appState } = useAuth();
 
   const { setSnackbar } = useAlert();
+
+  const { state } = useLocation();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isUserLoggedIn) {
+      if (state && state.from) {
+        navigate(state.from);
+      } else navigate("/");
+    }
+  }, [isUserLoggedIn, navigate, state]);
 
   const loginHandler = async (email, password) => {
     const msg = await loginUserWithCredentials(email, password);

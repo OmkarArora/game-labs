@@ -10,6 +10,8 @@ import {
   ExploreVideo,
   Sidenav,
   Login,
+  SignUp,
+  UserProfile,
 } from "./components";
 
 const App = () => {
@@ -29,6 +31,8 @@ const App = () => {
           <Route path="/playlist/:playlistId" element={<ExplorePlaylist />} />
           <Route path="/video/:videoId" element={<ExploreVideo />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/user-profile" element={<UserProfile />} />
         </Routes>
       </main>
       <div className="container-footer">
