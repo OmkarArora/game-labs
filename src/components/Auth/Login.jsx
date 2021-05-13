@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
-import { useAuth, useAlert } from "../../contexts";
+import { useAuth, useAlert, usePlaylists } from "../../contexts";
 import { LoadingState } from "../LoadingState/LoadingState";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
 import "./auth.css";
+import { fetchPlaylists } from "../../api/playlists.api";
 
 export const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("user@gmail.com");
+  const [password, setPassword] = useState("abcd@1234");
   const [passwordVisible, setPasswordVisibility] = useState(false);
 
   const { isUserLoggedIn, loginUserWithCredentials, appState } = useAuth();
@@ -16,8 +16,9 @@ export const Login = () => {
   const { setSnackbar } = useAlert();
 
   const { state } = useLocation();
-
   const navigate = useNavigate();
+
+  const { dispatch: playlistDispatch } = usePlaylists();
 
   useEffect(() => {
     if (isUserLoggedIn) {
@@ -36,29 +37,25 @@ export const Login = () => {
         data: msg.errorMessage,
       });
     } else {
-      // fetch playlists
-        (async () => {
-      	const userId = msg.user.id;
-      	try {
-      	  const { data } = await axios.get(
-      		`${process.env.REACT_APP_BACKEND}/users/${userId}/playlists`
-      	  );
-      	  if (data.success) {
-      		// const fetchedCart = data.cart;
-          console.log({data});
-      		// cartDispatch({ type: "SET_CART", payload: fetchedCart });
-      	  }
-      	} catch (error) {
-      	  // cartDispatch({ type: "SET_APP_STATE", payload: "error" });
-          console.log({error})
-      	}
-        })();
-
       setSnackbar({
         openStatus: true,
         type: "success",
         data: "Signed in successfully",
       });
+
+      // fetch playlists
+      (async () => {
+        const userId = msg.user.id;
+        const playlists = await fetchPlaylists(userId);
+        if("isAxiosError" in playlists){
+          return setSnackbar({
+            openStatus: true,
+            type: "error",
+            data: "Error in loading playlists",
+          });
+        }
+        playlistDispatch({type: "SET_PLAYLISTS", payload: {playlists: playlists}});
+      })();
     }
   };
 

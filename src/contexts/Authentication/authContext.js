@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const loginStatus = JSON.parse(localStorage?.getItem("login"));
+    const loginStatus = JSON.parse(localStorage?.getItem("glabslogin"));
 
     loginStatus?.isUserLoggedIn &&
       dispatch({ type: "LOGIN_USER", payload: true });
@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }) => {
           payload: "",
         });
         localStorage?.setItem(
-          "login",
+          "glabslogin",
           JSON.stringify({
             isUserLoggedIn: true,
             userId: response.data.user.id,
@@ -68,7 +68,7 @@ export const AuthProvider = ({ children }) => {
 
   function logoutUser() {
     dispatch({ type: "LOGOUT_USER" });
-    localStorage.removeItem("login");
+    localStorage.removeItem("glabslogin");
     navigate("/");
   }
 

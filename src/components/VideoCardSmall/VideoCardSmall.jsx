@@ -13,6 +13,7 @@ export const VideoCardSmall = ({
   thumbnail,
   title,
   categoryId,
+  video
 }) => {
   const [popoverVisibilty, setPopoverVisibility] = useState(false);
   const [
@@ -41,11 +42,11 @@ export const VideoCardSmall = ({
 
   return (
     <div className="card-videoSmall">
-      <Link to={`/video/${id}`}>
+      <Link to={`/video/${id}`} state={{video}}>
         <img src={thumbnail} alt={title} />
       </Link>
       <div className="details">
-        <Link to={`/video/${id}`}>
+        <Link to={`/video/${id}`} state={{video}}>
           <div className="heading">{title}</div>
         </Link>
         <span className="icon icon-menu remove-tap-highlight">

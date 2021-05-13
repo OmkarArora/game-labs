@@ -1,24 +1,37 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useAllVideos } from "../../contexts/AllVideos/allVideosContext";
+import { useParams, useLocation } from "react-router-dom";
 import { AddToPlaylistPopup } from "../AddToPlaylistPopup/AddToPlaylistPopup";
 import { MdAddToPhotos } from "react-icons/md";
 import "./exploreVideo.css";
+import { fetchVideoDetails } from "../../api";
+import {useAlert} from "../../contexts";
 
 export const ExploreVideo = () => {
   const { videoId } = useParams();
   const [video, setVideo] = useState({});
-  const { allVideos } = useAllVideos();
+  const { state } = useLocation();
+  const { setSnackbar } = useAlert();
 
-  const [
-    addToPlaylistPopupVisibility,
-    setAddToPlaylistPopupVisibility,
-  ] = useState(false);
+  const [addToPlaylistPopupVisibility, setAddToPlaylistPopupVisibility] =
+    useState(false);
 
   useEffect(() => {
-    const video = allVideos.find((item) => item.id === videoId);
-    setVideo(video);
-  }, [allVideos, videoId]);
+    if (!state) {
+      (async () => {
+        const video = await fetchVideoDetails(videoId);
+        if ("isAxiosError" in video) {
+          return setSnackbar({
+            openStatus: true,
+            type: "error",
+            data: "Error loading video",
+          });
+        }
+        setVideo(video);
+      })();
+    } else {
+      setVideo(state.video);
+    }
+  }, [state, videoId, setSnackbar]);
 
   return (
     <div className="explore-video">
@@ -31,7 +44,10 @@ export const ExploreVideo = () => {
       ></iframe>
       <div className="video-info">
         <div>{video.description}</div>
-        <div className="icon icon-add" onClick={() => setAddToPlaylistPopupVisibility((prev) => !prev)}>
+        <div
+          className="icon icon-add"
+          onClick={() => setAddToPlaylistPopupVisibility((prev) => !prev)}
+        >
           <MdAddToPhotos />
         </div>
         {addToPlaylistPopupVisibility && (

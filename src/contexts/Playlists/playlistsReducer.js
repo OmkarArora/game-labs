@@ -5,6 +5,10 @@ export const reducerFn = (state, action) => {
   let playlist = null;
   if (action) {
     switch (action.type) {
+      case "SET_PLAYLISTS":
+        //payload: {playlists}
+        return { playlists: action.payload.playlists };
+        
       case "ADD_VIDEO_TO_PLAYLIST":
         //payload: {playlistId: "", video: {id, title, thumbnail, runtime}}
         const { playlistId, video } = action.payload;

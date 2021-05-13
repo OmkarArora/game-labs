@@ -20,7 +20,7 @@ export const ExplorePlaylist = () => {
 
   return (
     <div className="explore-playlist">
-      <div className="playlist-title">{playlist.title}</div>
+      <div className="playlist-title">{playlist && playlist.title}</div>
       <div className="container-videos">
         {playlist && playlist.videos && playlist.videos.length === 0 && (
           <div className="disclaimer-empty">No videos added</div>
@@ -35,6 +35,7 @@ export const ExplorePlaylist = () => {
               id={video.id}
               title={video.title}
               thumbnail={video.thumbnail}
+              video={video}
             />
           ))}
       </div>
