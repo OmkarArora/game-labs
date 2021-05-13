@@ -13,7 +13,7 @@ import { HiOutlineDotsVertical } from "react-icons/hi";
 import { getIcon } from "./getIcon";
 import "./videoCard.css";
 
-export const VideoCard = ({ id, title, category, thumbnail, runtime }) => {
+export const VideoCard = ({video}) => {
   const primaryBgColor = "#181818";
   const [popoverVisibilty, setPopoverVisibility] = useState(false);
   const [
@@ -32,19 +32,19 @@ export const VideoCard = ({ id, title, category, thumbnail, runtime }) => {
   return (
     <div className="container-videoCard">
       <CardCustom>
-        <Link to={`/video/${id}`}>
-          <CardImage image={thumbnail} title="yoru" />
+        <Link to={`/video/${video.id}`}>
+          <CardImage image={video.thumbnail} title="yoru" />
         </Link>
         <div className="content-videoCard">
           <CardContent>
             <Avatar
-              alt={category}
-              src={getIcon(category)}
+              alt={video.category}
+              src={getIcon(video.category)}
               bgColor={primaryBgColor}
               height="2rem"
               width="2rem"
             />
-           <Link to={`/video/${id}`}><div>{title}</div></Link>
+           <Link to={`/video/${video.id}`}><div>{video.title}</div></Link>
           </CardContent>
           <CardActions>
             <span className="icon icon-menu remove-tap-highlight">
@@ -59,11 +59,7 @@ export const VideoCard = ({ id, title, category, thumbnail, runtime }) => {
       {addToPlaylistPopupVisibility && (
         <AddToPlaylistPopup
           onClose={(arg) => setAddToPlaylistPopupVisibility(arg)}
-          video={{
-            id,
-            title,
-            thumbnail,
-          }}
+          video={video}
         />
       )}
     </div>

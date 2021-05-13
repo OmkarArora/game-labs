@@ -1,6 +1,6 @@
-import { v4 as uuid } from "uuid";
 import { useState, useRef, useEffect } from "react";
 import { usePlaylists, useAlert } from "../../contexts";
+import { createPlaylist, addVideoToPlaylist } from "../../api";
 import "./createPlaylistModal.css";
 
 export const CreatePlaylistModal = ({
@@ -16,35 +16,65 @@ export const CreatePlaylistModal = ({
   useEffect(() => inputRef.current.focus());
 
   const createNewPlaylist = () => {
-    const playlistId = uuid();
-    dispatch({
-      type: "CREATE_NEW_PLAYLIST",
-      payload: { id: playlistId, title: title },
-    });
+    const loginStatus = JSON.parse(localStorage?.getItem("glabslogin"));
 
-    if (video)
-      dispatch({
-        type: "ADD_VIDEO_TO_PLAYLIST",
-        payload: { playlistId: playlistId, video: video },
-      });
+    if (loginStatus) {
+      (async () => {
+        const userId = JSON.parse(localStorage.getItem("glabslogin")).userId;
+        let playlist = await createPlaylist(userId, title);
+        if ("isAxiosError" in playlist) {
+          // set error
+          setSnackbar({
+            open: true,
+            type: "error",
+            data: "Unable to create playlist",
+          });
+        } else {
+          dispatch({
+            type: "CREATE_NEW_PLAYLIST",
+            payload: { playlist },
+          });
 
-    setSnackbar({
-      openStatus: true,
-      type: "success",
-      data: "Playlist created",
-    });
+          if (video){
+            (async () => {
+              let updatedPlaylist = await addVideoToPlaylist(
+                playlist.id,
+                video.id
+              );
+              if ("isAxiosError" in updatedPlaylist) {
+                // set error
+                setSnackbar({
+                  open: true,
+                  type: "error",
+                  data: "Unable to add video to playlist",
+                });
+              } else {
+                dispatch({
+                  type: "ADD_VIDEO_TO_PLAYLIST",
+                  payload: { playlistId: playlist.id, video: video },
+                });
+              }
+            })();
+          }
 
-    setModalVisibility(false);
-    if(onClosePopup)
-      onClosePopup(false);
+          setSnackbar({
+            openStatus: true,
+            type: "success",
+            data: "Playlist created",
+          });
+        }
+      })();
+
+      setModalVisibility(false);
+      if (onClosePopup) onClosePopup(false);
+    }
   };
-
   return (
     <div className="overlay-createPlaylist">
       <div className="modal-createPlaylist">
         <div className="header">New playlist</div>
         <input
-        ref={inputRef}
+          ref={inputRef}
           type="text"
           placeholder="Title"
           onChange={(e) => setTitle(e.target.value)}

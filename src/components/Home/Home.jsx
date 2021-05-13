@@ -6,20 +6,16 @@ import "./home.css";
 
 export const Home = () => {
   const { setActiveNavLink } = useNav();
-  const { allVideos } = useAllVideos();
+  const { videos } = useAllVideos();
 
   useEffect(() => setActiveNavLink("home"));
 
   return (
     <div className="home container-videos">
-      {allVideos.map(({ id, title, categoryId, thumbnail, runtime }) => (
+      {videos && videos.map((video) => (
         <VideoCard
-          key={id}
-          id={id}
-          title={title}
-          category={categoryId}
-          thumbnail={thumbnail}
-          runtime={runtime}
+          key={video.id}
+          video={video}
         />
       ))}
     </div>

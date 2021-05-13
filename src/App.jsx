@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router";
+import PrivateRoute from "./PrivateRoute";
 import "./App.css";
 import {
   Guides,
@@ -26,8 +27,8 @@ const App = () => {
       <main className="main">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/guides" element={<Guides />} />
-          <Route path="/library" element={<Library />} />
+          <PrivateRoute path="/guides" element={<Guides />} />
+          <PrivateRoute path="/library" element={<Library />} />
           <Route path="/playlist/:playlistId" element={<ExplorePlaylist />} />
           <Route path="/video/:videoId" element={<ExploreVideo />} />
           <Route path="/login" element={<Login />} />

@@ -2,16 +2,47 @@ import { useState } from "react";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import { Popover } from "../Popover/Popover";
-import { usePlaylists } from "../../contexts";
+import { usePlaylists, useAlert } from "../../contexts";
 import "./playlistNameCard.css";
+import { deletePlaylist } from "../../api";
 
 export const PlaylistNameCard = ({ id, image, title, numOfVideos }) => {
   const [popoverVisibilty, setPopoverVisibility] = useState(false);
   const { dispatch } = usePlaylists();
+  const { setSnackbar } = useAlert();
   const popoverMenu = [
     {
       text: `Delete ${title}`,
-      performAction: () => dispatch({ type: "DELETE_PLAYLIST", payload: {playlistId: id} }),
+      performAction: () => {
+        const loginStatus = JSON.parse(localStorage?.getItem("glabslogin"));
+        if (loginStatus) {
+          (async () => {
+            const userId = JSON.parse(
+              localStorage.getItem("glabslogin")
+            ).userId;
+            const deletedPlaylist = await deletePlaylist(userId, id);
+            if ("isAxiosError" in deletedPlaylist) {
+              // set error
+              setSnackbar({
+                open: true,
+                type: "error",
+                data: "Error occurred while deleting playlist",
+              });
+            } else {
+              dispatch({
+                type: "DELETE_PLAYLIST",
+                payload: { playlistId: deletedPlaylist.id },
+              });
+
+              setSnackbar({
+                openStatus: true,
+                type: "success",
+                data: "Playlist deleted",
+              });
+            }
+          })();
+        }
+      },
       onClose: () => setPopoverVisibility(false),
     },
   ];

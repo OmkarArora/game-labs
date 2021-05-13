@@ -1,27 +1,19 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { usePlaylists } from "../../contexts";
+import { usePlaylists, useAlert } from "../../contexts";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { Popover } from "../Popover/Popover";
 import { AddToPlaylistPopup } from "../AddToPlaylistPopup/AddToPlaylistPopup";
 import "./videoCardSmall.css";
+import { deleteVideoFromPlaylist } from "../../api";
 
-export const VideoCardSmall = ({
-  playlistId,
-  playlistTitle,
-  id,
-  thumbnail,
-  title,
-  categoryId,
-  video
-}) => {
+export const VideoCardSmall = ({ playlistId, playlistTitle, video }) => {
   const [popoverVisibilty, setPopoverVisibility] = useState(false);
-  const [
-    addToPlaylistPopupVisibility,
-    setAddToPlaylistPopupVisibility,
-  ] = useState(false);
+  const [addToPlaylistPopupVisibility, setAddToPlaylistPopupVisibility] =
+    useState(false);
 
   const { dispatch } = usePlaylists();
+  const { setSnackbar } = useAlert();
 
   const popoverMenu = [
     {
@@ -31,23 +23,40 @@ export const VideoCardSmall = ({
     },
     {
       text: `Remove from ${playlistTitle}`,
-      performAction: () =>
-        dispatch({
-          type: "REMOVE_VIDEO_FROM_PLAYLIST",
-          payload: { playlistId, videoId: id },
-        }),
+      performAction: () => {
+        const loginStatus = JSON.parse(localStorage?.getItem("glabslogin"));
+
+        if (loginStatus) {
+          (async () => {
+            let playlist = await deleteVideoFromPlaylist(playlistId, video.id);
+            if ("isAxiosError" in playlist) {
+              // set error
+              setSnackbar({
+                open: true,
+                type: "error",
+                data: "Error deleting video from playlist",
+              });
+            } else {
+              return dispatch({
+                type: "REMOVE_VIDEO_FROM_PLAYLIST",
+                payload: { playlistId: playlistId, videoId: video.id },
+              });
+            }
+          })();
+        }
+      },
       onClose: () => setPopoverVisibility(false),
     },
   ];
 
   return (
     <div className="card-videoSmall">
-      <Link to={`/video/${id}`} state={{video}}>
-        <img src={thumbnail} alt={title} />
+      <Link to={`/video/${video.id}`} state={{ video }}>
+        <img src={video.thumbnail} alt={video.title} />
       </Link>
       <div className="details">
-        <Link to={`/video/${id}`} state={{video}}>
-          <div className="heading">{title}</div>
+        <Link to={`/video/${video.id}`} state={{ video }}>
+          <div className="heading">{video.title}</div>
         </Link>
         <span className="icon icon-menu remove-tap-highlight">
           <HiOutlineDotsVertical
@@ -59,11 +68,7 @@ export const VideoCardSmall = ({
       {addToPlaylistPopupVisibility && (
         <AddToPlaylistPopup
           onClose={(arg) => setAddToPlaylistPopupVisibility(arg)}
-          video={{
-            id,
-            title,
-            thumbnail,
-          }}
+          video={video}
         />
       )}
     </div>

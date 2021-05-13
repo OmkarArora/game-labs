@@ -1,16 +1,11 @@
-import { useAuth } from "../../contexts";
+import { useAuth, usePlaylists } from "../../contexts";
 import "./userProfile.css";
 
 export const UserProfile = () => {
   const { isUserLoggedIn, logoutUser } = useAuth();
-
+  const { dispatch } = usePlaylists();
   const logoutHandler = () => {
-    // if(localStorage?.getItem("noUserCart")){
-    //   cartDispatch({ type: "SET_CART", payload: JSON.parse(localStorage.getItem("noUserCart")) });
-    // }else{
-    //   cartDispatch({ type: "SET_CART", payload: [] });
-    // }
-    // wishlistDispatch({ type: "SET_WISHLIST", payload: [] });
+    dispatch({type: "SET_PLAYLISTS", payload: {playlists: []}});
     logoutUser();
   };
 

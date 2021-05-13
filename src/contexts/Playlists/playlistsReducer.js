@@ -1,4 +1,4 @@
-import { v4 as uuid } from "uuid";
+
 
 export const reducerFn = (state, action) => {
   let _state = JSON.parse(JSON.stringify(state));
@@ -7,8 +7,8 @@ export const reducerFn = (state, action) => {
     switch (action.type) {
       case "SET_PLAYLISTS":
         //payload: {playlists}
-        return { playlists: action.payload.playlists };
-        
+        return { ..._state, playlists: action.payload.playlists };
+
       case "ADD_VIDEO_TO_PLAYLIST":
         //payload: {playlistId: "", video: {id, title, thumbnail, runtime}}
         const { playlistId, video } = action.payload;
@@ -27,16 +27,12 @@ export const reducerFn = (state, action) => {
         return _state;
 
       case "CREATE_NEW_PLAYLIST":
-        //payload:{title: "", id: ""}
-        playlist = {
-          id: action.payload.id ? action.payload.id : uuid(),
-          title: action.payload.title,
-          videos: [],
-        };
-        return { ..._state, playlists: [..._state.playlists, playlist] };
-        
+        //payload:{playlist: {}}
+        return {..._state, playlists: [...state.playlists, action.payload.playlist]};
+
       case "DELETE_PLAYLIST":
         //payload: {playlisId : ""}
+        console.log({action});
         const playlists = _state.playlists.filter(
           (playlist) => playlist.id !== action.payload.playlistId
         );

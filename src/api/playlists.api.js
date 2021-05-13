@@ -27,3 +27,76 @@ export const fetchPlaylists = async (userId) => {
     return error;
   }
 };
+
+
+export const createPlaylist = async (userId, title) => {
+  try {
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_BACKEND}/users/${userId}/playlists/create`, {
+        title
+      }
+    );
+    if (data.success) {
+      let playlist = data.playlist;
+      playlist = {id: playlist._id, title: playlist.title, videos: playlist.video || []}
+      return playlist;
+    }
+  } catch (error) {
+    console.error({ error });
+    return error;
+  }
+};
+
+export const deletePlaylist = async (userId, playlistId) => {
+  try {
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_BACKEND}/users/${userId}/playlists/delete`, {
+        playlistId
+      }
+    );
+    if (data.success) {
+      let playlist = data.playlist;
+      playlist = {id: playlist._id, title: playlist.title, videos: playlist.video}
+      return playlist;
+    }
+  } catch (error) {
+    console.error({ error });
+    return error;
+  }
+};
+
+export const addVideoToPlaylist = async (playlistId, videoId) => {
+  try {
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_BACKEND}/playlists/${playlistId}/video/add`, {
+        video: videoId
+      }
+    );
+    if (data.success) {
+      let playlist = data.playlist;
+      console.log({ playlist });
+      return playlist;
+    }
+  } catch (error) {
+    console.error({ error });
+    return error;
+  }
+};
+
+export const deleteVideoFromPlaylist = async (playlistId, videoId) => {
+  try {
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_BACKEND}/playlists/${playlistId}/video/delete`, {
+        video: videoId
+      }
+    );
+    if (data.success) {
+      let playlist = data.playlist;
+      console.log({ playlist });
+      return playlist;
+    }
+  } catch (error) {
+    console.error({ error });
+    return error;
+  }
+};

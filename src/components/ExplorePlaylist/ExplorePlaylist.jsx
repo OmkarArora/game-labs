@@ -32,9 +32,6 @@ export const ExplorePlaylist = () => {
               key={video.id}
               playlistId={playlistId}
               playlistTitle={playlist.title}
-              id={video.id}
-              title={video.title}
-              thumbnail={video.thumbnail}
               video={video}
             />
           ))}

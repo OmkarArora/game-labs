@@ -1,2 +1,8 @@
-export { fetchPlaylists } from "./playlists.api";
-export { fetchVideoDetails } from "./videos.api";
+export {
+  fetchPlaylists,
+  createPlaylist,
+  deletePlaylist,
+  addVideoToPlaylist,
+  deleteVideoFromPlaylist
+} from "./playlists.api";
+export { fetchVideoDetails, fetchAllVideos } from "./videos.api";
