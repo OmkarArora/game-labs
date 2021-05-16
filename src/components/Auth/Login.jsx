@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
-import { useAuth, useAlert, usePlaylists } from "../../contexts";
+import { useAuth, useAlert, usePlaylists, useCategory } from "../../contexts";
 import { LoadingState } from "../LoadingState/LoadingState";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./auth.css";
 import { fetchPlaylists } from "../../api/playlists.api";
+import { fetchUserSubscriptions } from "../../api/categories.api";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
@@ -19,6 +20,7 @@ export const Login = () => {
   const navigate = useNavigate();
 
   const { dispatch: playlistDispatch } = usePlaylists();
+  const {dispatch: categoryDispatch} = useCategory();
 
   useEffect(() => {
     if (isUserLoggedIn) {
@@ -56,6 +58,20 @@ export const Login = () => {
         }
         playlistDispatch({type: "SET_PLAYLISTS", payload: {playlists: playlists}});
       })();
+
+      //fetch user subscriptions
+      (async () => {
+        const userId = msg.user.id;
+        const subscriptions = await fetchUserSubscriptions(userId);
+        if("isAxiosError" in subscriptions){
+          return setSnackbar({
+            openStatus: true,
+            type: "error",
+            data: "Error in loading subscriptions",
+          });
+        }
+        categoryDispatch({type: "SET_USER_SUBSCRIPTIONS", payload: {userSubscriptions: subscriptions}});
+      })()
     }
   };
 

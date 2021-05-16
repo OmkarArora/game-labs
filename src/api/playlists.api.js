@@ -74,7 +74,6 @@ export const addVideoToPlaylist = async (playlistId, videoId) => {
     );
     if (data.success) {
       let playlist = data.playlist;
-      console.log({ playlist });
       return playlist;
     }
   } catch (error) {

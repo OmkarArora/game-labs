@@ -3,6 +3,7 @@ export {
   createPlaylist,
   deletePlaylist,
   addVideoToPlaylist,
-  deleteVideoFromPlaylist
+  deleteVideoFromPlaylist,
 } from "./playlists.api";
 export { fetchVideoDetails, fetchAllVideos } from "./videos.api";
+export { fetchAllCategories } from "./categories.api";

@@ -8,7 +8,7 @@ export const Guides = () => {
   const { setActiveNavLink } = useNav();
   useEffect(() => setActiveNavLink("guides"), [setActiveNavLink]);
   
-  // const { categories } = useCategory();
+  // const { allCategories } = useCategory();
   // const { guideVideos } = useGuides();
   // const [activeCategory, setActiveCategory] = useState(
   //   categories ? categories[0].id : ""
