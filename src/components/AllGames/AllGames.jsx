@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { subToCategory, unsubFromCategory } from "../../api/categories.api";
 import { useNav, useCategory, useAuth, useAlert } from "../../contexts";
+import { LoadingState } from "../LoadingState/LoadingState";
 import "./allGames.css";
 import checkSubscription from "./checkSubscription";
 
@@ -11,6 +12,7 @@ export const AllGames = () => {
     allCategories,
     userSubscriptions,
     dispatch: categoryDispatch,
+    appState,
   } = useCategory();
   const { isUserLoggedIn, userData } = useAuth();
   const { setSnackbar } = useAlert();
@@ -18,6 +20,10 @@ export const AllGames = () => {
   const subscribeUser = (categoryId) => {
     (async () => {
       try {
+        categoryDispatch({
+          type: "SET_APP_STATE",
+          payload: { appState: "loading" },
+        });
         const category = await subToCategory(userData.id, categoryId);
         categoryDispatch({
           type: "SUB_TO_CATEGORY",
@@ -36,8 +42,11 @@ export const AllGames = () => {
   const unsubscribeUser = (categoryId) => {
     (async () => {
       try {
+        categoryDispatch({
+          type: "SET_APP_STATE",
+          payload: { appState: "loading" },
+        });
         const category = await unsubFromCategory(userData.id, categoryId);
-        
         categoryDispatch({
           type: "UNSUB_FROM_CATEGORY",
           payload: { category },
@@ -89,6 +98,7 @@ export const AllGames = () => {
             </div>
           </div>
         ))}
+      {appState === "loading" && <LoadingState />}
     </div>
   );
 };
