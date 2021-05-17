@@ -7,8 +7,8 @@ import { fetchPlaylists, fetchUserSubscriptions } from "../../api";
 import "./auth.css";
 
 export const Login = () => {
-  const [email, setEmail] = useState("user@gmail.com");
-  const [password, setPassword] = useState("abcd@1234");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisibility] = useState(false);
 
   const { isUserLoggedIn, loginUserWithCredentials, appState } = useAuth();
