@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
     isUserLoggedIn: false,
     appState: "success",
     errorMessage: "",
-    userData: {},
+    userData: undefined,
   });
 
   const navigate = useNavigate();
@@ -23,9 +23,22 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const loginStatus = JSON.parse(localStorage?.getItem("glabslogin"));
 
+    if(loginStatus?.isUserLoggedIn){
+      if(!userData){
+        (async () => {
+          try{
+            const {data} = await axios.get(`${process.env.REACT_APP_BACKEND}/users/${loginStatus.userId}`);
+            dispatch({ type: "SET_USER_DATA", payload: data.user });
+          }
+          catch(error){
+            console.error({error});
+          }
+        })();
+      }
+    }
     loginStatus?.isUserLoggedIn &&
       dispatch({ type: "LOGIN_USER", payload: true });
-  }, []);
+  }, [userData]);
 
   async function loginUserWithCredentials(email, password) {
     try {

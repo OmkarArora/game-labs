@@ -7,8 +7,8 @@ import { fetchPlaylists, fetchUserSubscriptions } from "../../api";
 import "./auth.css";
 
 export const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("user@gmail.com");
+  const [password, setPassword] = useState("abcd@1234");
   const [passwordVisible, setPasswordVisibility] = useState(false);
 
   const { isUserLoggedIn, loginUserWithCredentials, appState } = useAuth();
@@ -19,7 +19,7 @@ export const Login = () => {
   const navigate = useNavigate();
 
   const { dispatch: playlistDispatch } = usePlaylists();
-  const {dispatch: categoryDispatch} = useCategory();
+  const { dispatch: categoryDispatch } = useCategory();
 
   useEffect(() => {
     if (isUserLoggedIn) {
@@ -48,29 +48,35 @@ export const Login = () => {
       (async () => {
         const userId = msg.user.id;
         const playlists = await fetchPlaylists(userId);
-        if("isAxiosError" in playlists){
+        if ("isAxiosError" in playlists) {
           return setSnackbar({
             openStatus: true,
             type: "error",
             data: "Error in loading playlists",
           });
         }
-        playlistDispatch({type: "SET_PLAYLISTS", payload: {playlists: playlists}});
+        playlistDispatch({
+          type: "SET_PLAYLISTS",
+          payload: { playlists: playlists },
+        });
       })();
 
       //fetch user subscriptions
       (async () => {
         const userId = msg.user.id;
         const subscriptions = await fetchUserSubscriptions(userId);
-        if("isAxiosError" in subscriptions){
+        if ("isAxiosError" in subscriptions) {
           return setSnackbar({
             openStatus: true,
             type: "error",
             data: "Error in loading subscriptions",
           });
         }
-        categoryDispatch({type: "SET_USER_SUBSCRIPTIONS", payload: {userSubscriptions: subscriptions}});
-      })()
+        categoryDispatch({
+          type: "SET_USER_SUBSCRIPTIONS",
+          payload: { userSubscriptions: subscriptions },
+        });
+      })();
     }
   };
 

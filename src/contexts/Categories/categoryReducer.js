@@ -13,6 +13,15 @@ export const categoryReducer = (state, action) => {
       case "SET_APP_STATE":
         return { ...state, appState: action.payload.appState };
 
+      case "SUB_TO_CATEGORY":
+        return {...state, userSubscriptions: [...state.userSubscriptions, action.payload.category]}
+
+      case "UNSUB_FROM_CATEGORY":
+        let userSubs = state.userSubscriptions.filter(
+          (item) => item.id !== action.payload.category.id
+        );
+        return {...state, userSubscriptions: userSubs}
+
       default:
         return state;
     }

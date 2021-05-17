@@ -28,7 +28,7 @@ const App = () => {
       <main className="main">
         <Routes>
           <Route path="/" element={<Home />} />
-          <PrivateRoute path="/all-games" element={<AllGames />} />
+          <Route path="/all-games" element={<AllGames />} />
           <PrivateRoute path="/guides" element={<Guides />} />
           <PrivateRoute path="/library" element={<Library />} />
           <Route path="/playlist/:playlistId" element={<ExplorePlaylist />} />

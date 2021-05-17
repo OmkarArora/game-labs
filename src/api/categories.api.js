@@ -65,6 +65,19 @@ export const subToCategory = async (userId, categoryId) => {
     );
     if (data.success) {
       let category = data.category;
+      category = {
+        id: category._id,
+        name: category.name,
+        developers: category.developers,
+        publishers: category.publishers,
+        release: category.release,
+        genre: category.genre,
+        thumbnail: category.thumbnail,
+        icon: category.icon,
+        gallery: category.gallery,
+        description: category.description,
+        platforms: category.platforms,
+      };
       return category;
     }
   } catch (error) {
@@ -83,6 +96,19 @@ export const unsubFromCategory = async (userId, categoryId) => {
     );
     if (data.success) {
       let category = data.category;
+      category = {
+        id: category._id,
+        name: category.name,
+        developers: category.developers,
+        publishers: category.publishers,
+        release: category.release,
+        genre: category.genre,
+        thumbnail: category.thumbnail,
+        icon: category.icon,
+        gallery: category.gallery,
+        description: category.description,
+        platforms: category.platforms,
+      };
       return category;
     }
   } catch (error) {
