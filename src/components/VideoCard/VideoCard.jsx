@@ -10,11 +10,13 @@ import {
 import { Popover } from "../Popover/Popover";
 import { AddToPlaylistPopup } from "../AddToPlaylistPopup/AddToPlaylistPopup";
 import { HiOutlineDotsVertical } from "react-icons/hi";
-import { getIcon } from "./getIcon";
 import "./videoCard.css";
+import { useIcon } from "../../hooks";
 
 export const VideoCard = ({video}) => {
   const primaryBgColor = "#181818";
+  const categoryIcon = useIcon(video.category);
+
   const [popoverVisibilty, setPopoverVisibility] = useState(false);
   const [
     addToPlaylistPopupVisibility,
@@ -39,7 +41,7 @@ export const VideoCard = ({video}) => {
           <CardContent>
             <Avatar
               alt={video.category}
-              src={getIcon(video.category)}
+              src={categoryIcon}
               bgColor={primaryBgColor}
               height="2rem"
               width="2rem"
