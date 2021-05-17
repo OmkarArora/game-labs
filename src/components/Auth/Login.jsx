@@ -3,9 +3,8 @@ import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { useAuth, useAlert, usePlaylists, useCategory } from "../../contexts";
 import { LoadingState } from "../LoadingState/LoadingState";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { fetchPlaylists, fetchUserSubscriptions } from "../../api";
 import "./auth.css";
-import { fetchPlaylists } from "../../api/playlists.api";
-import { fetchUserSubscriptions } from "../../api/categories.api";
 
 export const Login = () => {
   const [email, setEmail] = useState("");

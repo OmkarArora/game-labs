@@ -3,6 +3,8 @@ import {
   RiGamepadLine,
   RiHome5Fill,
   RiHome5Line,
+  RiGameLine,
+  RiGameFill
 } from "react-icons/ri";
 import { BsCollectionPlayFill, BsCollectionPlay } from "react-icons/bs";
 import "./navbarMobile.css";
@@ -19,6 +21,15 @@ export const NavbarMobile = () => {
             {activeNavLink === "home" ? <RiHome5Fill /> : <RiHome5Line />}
           </div>
           <div className="heading">Home</div>
+        </div>
+      </Link>
+
+      <Link to="/all-games">
+        <div className="btn-nav btn-nav-guides">
+          <div className="icon icon-gamepad">
+            {activeNavLink === "all-games" ? <RiGameFill /> : <RiGameLine />}
+          </div>
+          <div className="heading">Games</div>
         </div>
       </Link>
 

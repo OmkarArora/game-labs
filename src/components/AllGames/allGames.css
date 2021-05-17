@@ -1,0 +1,40 @@
+.container-games {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.card-game {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-game img {
+  max-width: 100%;
+  height: auto;
+}
+
+.card-game .game-details {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-game .game-name {
+  font-size: 1.2rem;
+}
+
+.card-game .game-publishers {
+  font-size: 0.8rem;
+}
+
+.btn-subscribe {
+  align-self: center;
+}
+
+@media only screen and (min-width: 500px) {
+  .container-games {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.2rem;
+  }
+}

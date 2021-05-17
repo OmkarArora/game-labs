@@ -6,4 +6,4 @@ export {
   deleteVideoFromPlaylist,
 } from "./playlists.api";
 export { fetchVideoDetails, fetchAllVideos } from "./videos.api";
-export { fetchAllCategories } from "./categories.api";
+export { fetchAllCategories, fetchUserSubscriptions } from "./categories.api";

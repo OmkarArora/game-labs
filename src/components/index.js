@@ -1,4 +1,5 @@
 export { Home } from "./Home/Home";
+export { AllGames } from "./AllGames/AllGames";
 export { Guides } from "./Guides/Guides";
 export { Library } from "./Library/Library";
 export { Header } from "./Header/Header";

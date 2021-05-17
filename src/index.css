@@ -17,6 +17,9 @@ body {
   --primary-text-color: #fff;
   --icon-color-grey: #888888;
   --primary-blue-color: #3ea6ff;
+  --highlight-color: #c00;
+  --tonedown-color: rgba(255, 255, 255, 0.1);
+  --tonedown-text-color: #aaa;
 
   /* sizes */
   --font-size-icon-navbar-mobile: 1.5rem;
@@ -76,6 +79,24 @@ body {
 
 .icon {
   cursor: pointer;
+}
+
+.btn-highlight,
+.btn-tonedown {
+  cursor: pointer;
+  outline: none;
+  border: none;
+  padding: 0.5rem 1rem;
+}
+
+.btn-highlight {
+  background-color: var(--highlight-color);
+  color: var(--primary-text-color);
+}
+
+.btn-tonedown {
+  background-color: var(--tonedown-color);
+  color: var(--tonedown-text-color);
 }
 
 @media only screen and (min-width: 500px) {
