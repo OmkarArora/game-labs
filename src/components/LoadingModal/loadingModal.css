@@ -1,0 +1,28 @@
+.container-loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.container-loader .loader {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: conic-gradient(#0000 10%, #fff);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
+  animation: loading-spinner 1s infinite linear;
+}
+
+@keyframes loading-spinner {
+  to {
+    transform: rotate(1turn);
+  }
+}

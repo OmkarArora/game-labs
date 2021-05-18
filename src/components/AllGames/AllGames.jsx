@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { subToCategory, unsubFromCategory } from "../../api/categories.api";
 import { useNav, useCategory, useAuth, useAlert } from "../../contexts";
-import { LoadingState } from "../LoadingState/LoadingState";
+import { LoadingModal } from "../LoadingModal/LoadingModal";
 import "./allGames.css";
 import checkSubscription from "./checkSubscription";
 
@@ -98,7 +98,7 @@ export const AllGames = () => {
             </div>
           </div>
         ))}
-      {appState === "loading" && <LoadingState />}
+      {appState === "loading" && <LoadingModal />}
     </div>
   );
 };

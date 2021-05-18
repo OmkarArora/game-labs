@@ -1,5 +1,3 @@
-
-
 export const reducerFn = (state, action) => {
   let _state = JSON.parse(JSON.stringify(state));
   let playlist = null;
@@ -28,15 +26,21 @@ export const reducerFn = (state, action) => {
 
       case "CREATE_NEW_PLAYLIST":
         //payload:{playlist: {}}
-        return {..._state, playlists: [...state.playlists, action.payload.playlist]};
+        return {
+          ..._state,
+          playlists: [...state.playlists, action.payload.playlist],
+        };
 
       case "DELETE_PLAYLIST":
         //payload: {playlisId : ""}
-        console.log({action});
         const playlists = _state.playlists.filter(
           (playlist) => playlist.id !== action.payload.playlistId
         );
         return { ..._state, playlists: playlists };
+
+      case "SET_APP_STATE":
+        return { ...state, appState: action.payload.appState };
+        
       default:
         return state;
     }

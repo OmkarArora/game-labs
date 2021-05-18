@@ -26,6 +26,7 @@ export const Guides = () => {
 
   return (
     <div className="guides">
+      {userSubscriptions && userSubscriptions.length === 0 && <div>No subscriptions found</div>}
       <div className="container-categorySelect">
         {userSubscriptions.map((category) => (
           <div

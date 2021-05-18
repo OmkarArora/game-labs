@@ -7,8 +7,8 @@ const PlaylistsContext = createContext();
 export const usePlaylists = () => useContext(PlaylistsContext);
 
 export const PlaylistsProvider = ({ children }) => {
-  const [{ playlists }, dispatch] = useReducer(reducerFn, {
-    playlists: [],
+  const [{ playlists, appState }, dispatch] = useReducer(reducerFn, {
+    playlists: [], appState: "success"
   });
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export const PlaylistsProvider = ({ children }) => {
     }
   }, [])
 
-  const value = { playlists, dispatch };
+  const value = { playlists, appState, dispatch };
   return (
     <PlaylistsContext.Provider value={value}>
       {children}

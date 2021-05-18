@@ -21,6 +21,10 @@ export const CreatePlaylistModal = ({
     if (loginStatus) {
       (async () => {
         const userId = JSON.parse(localStorage.getItem("glabslogin")).userId;
+        dispatch({
+          type: "SET_APP_STATE",
+          payload: { appState: "loading" },
+        });
         let playlist = await createPlaylist(userId, title);
         if ("isAxiosError" in playlist) {
           // set error
@@ -55,6 +59,11 @@ export const CreatePlaylistModal = ({
                 });
               }
             })();
+
+            dispatch({
+              type: "SET_APP_STATE",
+              payload: { appState: "success" },
+            });
           }
 
           setSnackbar({

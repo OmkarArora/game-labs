@@ -28,6 +28,10 @@ export const VideoCardSmall = ({ playlistId, playlistTitle, video }) => {
 
         if (loginStatus) {
           (async () => {
+            dispatch({
+              type: "SET_APP_STATE",
+              payload: { appState: "loading" },
+            });
             let playlist = await deleteVideoFromPlaylist(playlistId, video.id);
             if ("isAxiosError" in playlist) {
               // set error
@@ -37,11 +41,15 @@ export const VideoCardSmall = ({ playlistId, playlistTitle, video }) => {
                 data: "Error deleting video from playlist",
               });
             } else {
-              return dispatch({
+              dispatch({
                 type: "REMOVE_VIDEO_FROM_PLAYLIST",
                 payload: { playlistId: playlistId, videoId: video.id },
               });
             }
+            dispatch({
+              type: "SET_APP_STATE",
+              payload: { appState: "success" },
+            });
           })();
         }
       },

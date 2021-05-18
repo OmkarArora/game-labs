@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { usePlaylists, useNav } from "../../contexts";
+import { LoadingModal } from "../LoadingModal/LoadingModal";
 import { VideoCardSmall } from "../VideoCardSmall/VideoCardSmall";
 
 import "./explorePlaylist.css";
 
 export const ExplorePlaylist = () => {
   const { playlistId } = useParams();
-  const { playlists } = usePlaylists();
+  const { appState, playlists } = usePlaylists();
   const [playlist, setPlaylist] = useState({});
 
   const { setActiveNavLink } = useNav();
@@ -36,6 +37,7 @@ export const ExplorePlaylist = () => {
             />
           ))}
       </div>
+      {appState==="loading" && <LoadingModal/>}
     </div>
   );
 };

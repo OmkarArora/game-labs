@@ -5,10 +5,11 @@ import { Popover } from "../Popover/Popover";
 import { usePlaylists, useAlert } from "../../contexts";
 import "./playlistNameCard.css";
 import { deletePlaylist } from "../../api";
+import { LoadingModal } from "../LoadingModal/LoadingModal";
 
 export const PlaylistNameCard = ({ id, image, title, numOfVideos }) => {
   const [popoverVisibilty, setPopoverVisibility] = useState(false);
-  const { dispatch } = usePlaylists();
+  const { appState, dispatch } = usePlaylists();
   const { setSnackbar } = useAlert();
   const popoverMenu = [
     {
@@ -20,6 +21,10 @@ export const PlaylistNameCard = ({ id, image, title, numOfVideos }) => {
             const userId = JSON.parse(
               localStorage.getItem("glabslogin")
             ).userId;
+            dispatch({
+              type: "SET_APP_STATE",
+              payload: { appState: "loading" },
+            });
             const deletedPlaylist = await deletePlaylist(userId, id);
             if ("isAxiosError" in deletedPlaylist) {
               // set error
@@ -40,6 +45,10 @@ export const PlaylistNameCard = ({ id, image, title, numOfVideos }) => {
                 data: "Playlist deleted",
               });
             }
+            dispatch({
+              type: "SET_APP_STATE",
+              payload: { appState: "success" },
+            });
           })();
         }
       },
@@ -71,6 +80,7 @@ export const PlaylistNameCard = ({ id, image, title, numOfVideos }) => {
           </span>
         </div>
       </div>
+      {appState === "loading" && <LoadingModal />}
     </div>
   );
 };

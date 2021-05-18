@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { useAuth, useAlert } from "../../contexts";
-import { LoadingState } from "../LoadingState/LoadingState";
+import { LoadingModal } from "../LoadingModal/LoadingModal";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./auth.css";
 
@@ -11,9 +11,8 @@ export const SignUp = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordVisible, setPasswordVisibility] = useState(false);
-  const [confirmPasswordVisible, setConfirmPasswordVisibility] = useState(
-    false
-  );
+  const [confirmPasswordVisible, setConfirmPasswordVisibility] =
+    useState(false);
 
   const { isUserLoggedIn, signupUser, appState } = useAuth();
 
@@ -119,21 +118,19 @@ export const SignUp = () => {
             {confirmPasswordVisible ? <AiFillEye /> : <AiFillEyeInvisible />}
           </span>
         </label>
-        {appState === "loading" ? (
-          <LoadingState />
-        ) : (
-          <button
-            type="submit"
-            className="btn-submit"
-            disabled={
-              password !== confirmPassword ||
-              password.length < 8 ||
-              email.length === 0
-            }
-          >
-            SIGNUP
-          </button>
-        )}
+
+        <button
+          type="submit"
+          className="btn-submit"
+          disabled={
+            password !== confirmPassword ||
+            password.length < 8 ||
+            email.length === 0
+          }
+        >
+          SIGNUP
+        </button>
+        {appState === "loading" && <LoadingModal />}
       </form>
     </div>
   );

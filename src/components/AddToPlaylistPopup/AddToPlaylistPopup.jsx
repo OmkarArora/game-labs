@@ -3,11 +3,12 @@ import { FiCheck, FiPlus } from "react-icons/fi";
 import { addVideoToPlaylist, deleteVideoFromPlaylist } from "../../api";
 import { usePlaylists, useAlert } from "../../contexts";
 import { CreatePlaylistModal } from "../CreatePlaylistModal/CreatePlaylistModal";
+import { LoadingModal } from "../LoadingModal/LoadingModal";
 import "./addToPlaylistPopup.css";
 
 export const AddToPlaylistPopup = ({ onClose, video: propsVideo }) => {
   console.log({ propsVideo });
-  const { playlists, dispatch } = usePlaylists();
+  const { playlists, appState, dispatch } = usePlaylists();
   const [modalVisibility, setModalVisibility] = useState(false);
   const [isPlaylistUpdated, setPlaylistUpdate] = useState(false);
   const { setSnackbar } = useAlert();
@@ -22,6 +23,10 @@ export const AddToPlaylistPopup = ({ onClose, video: propsVideo }) => {
 
         if (loginStatus) {
           (async () => {
+            dispatch({
+              type: "SET_APP_STATE",
+              payload: { appState: "loading" },
+            });
             let playlist = await addVideoToPlaylist(playlistId, propsVideo.id);
             if ("isAxiosError" in playlist) {
               // set error
@@ -36,6 +41,10 @@ export const AddToPlaylistPopup = ({ onClose, video: propsVideo }) => {
                 payload: { playlistId: playlistId, video: propsVideo },
               });
             }
+            dispatch({
+              type: "SET_APP_STATE",
+              payload: { appState: "success" },
+            });
           })();
         }
       }
@@ -45,6 +54,10 @@ export const AddToPlaylistPopup = ({ onClose, video: propsVideo }) => {
 
         if (loginStatus) {
           (async () => {
+            dispatch({
+              type: "SET_APP_STATE",
+              payload: { appState: "loading" },
+            });
             let playlist = await deleteVideoFromPlaylist(
               playlistId,
               propsVideo.id
@@ -57,11 +70,15 @@ export const AddToPlaylistPopup = ({ onClose, video: propsVideo }) => {
                 data: "Error deleting video from playlist",
               });
             } else {
-              return dispatch({
+               dispatch({
                 type: "REMOVE_VIDEO_FROM_PLAYLIST",
                 payload: { playlistId: playlistId, videoId: propsVideo.id },
               });
             }
+            dispatch({
+              type: "SET_APP_STATE",
+              payload: { appState: "success" },
+            });
           })();
         }
       }
@@ -128,6 +145,7 @@ export const AddToPlaylistPopup = ({ onClose, video: propsVideo }) => {
           setModalVisibility={(arg) => setModalVisibility(arg)}
         />
       )}
+      {appState === "loading" && <LoadingModal />}
     </div>
   );
 };

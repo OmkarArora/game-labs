@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { useAuth, useAlert, usePlaylists, useCategory } from "../../contexts";
-import { LoadingState } from "../LoadingState/LoadingState";
+import { LoadingModal } from "../LoadingModal/LoadingModal";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { fetchPlaylists, fetchUserSubscriptions } from "../../api";
 import "./auth.css";
@@ -112,18 +112,23 @@ export const Login = () => {
             {passwordVisible ? <AiFillEye /> : <AiFillEyeInvisible />}
           </span>
         </label>
-        {appState === "loading" ? (
-          <LoadingState />
+        {/* {appState === "loading" ? (
+          <LoadingModal />
         ) : (
           <button type="submit" className="btn-submit">
             LOGIN
           </button>
-        )}
+        )} */}
+        <button type="submit" className="btn-submit">
+          LOGIN
+        </button>
       </form>
 
       <div>
         <Link to="/signup">Not a member yet? Sign Up</Link>
       </div>
+
+      {appState === "loading" && <LoadingModal />}
     </div>
   );
 };
