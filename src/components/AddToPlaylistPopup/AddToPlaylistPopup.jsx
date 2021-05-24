@@ -7,7 +7,6 @@ import { LoadingModal } from "../LoadingModal/LoadingModal";
 import "./addToPlaylistPopup.css";
 
 export const AddToPlaylistPopup = ({ onClose, video: propsVideo }) => {
-  console.log({ propsVideo });
   const { playlists, appState, dispatch } = usePlaylists();
   const [modalVisibility, setModalVisibility] = useState(false);
   const [isPlaylistUpdated, setPlaylistUpdate] = useState(false);

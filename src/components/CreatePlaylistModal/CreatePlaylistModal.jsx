@@ -60,12 +60,14 @@ export const CreatePlaylistModal = ({
               }
             })();
 
-            dispatch({
-              type: "SET_APP_STATE",
-              payload: { appState: "success" },
-            });
+            
           }
 
+          dispatch({
+            type: "SET_APP_STATE",
+            payload: { appState: "success" },
+          });
+          
           setSnackbar({
             openStatus: true,
             type: "success",
