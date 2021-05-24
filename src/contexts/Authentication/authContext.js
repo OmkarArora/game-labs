@@ -1,4 +1,10 @@
-import { createContext, useContext, useEffect, useReducer } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useCallback,
+} from "react";
 import { authReducer } from "./authReducer";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -17,7 +23,7 @@ function setupAuthExceptionHandler(logoutUser, navigate) {
     (error) => {
       if (error?.response?.status === UNAUTHORIZED) {
         logoutUser();
-        navigate("login");
+        navigate("/login");
       }
       return Promise.reject(error);
     }
@@ -39,7 +45,17 @@ export const AuthProvider = ({ children }) => {
 
   const navigate = useNavigate();
 
-  useEffect(() => setupAuthExceptionHandler(), []);
+  const logoutUser = useCallback(() => {
+    dispatch({ type: "LOGOUT_USER" });
+    localStorage.removeItem("glabslogin");
+    setupAuthHeaderForServiceCalls(undefined);
+    navigate("/");
+  }, [navigate]);
+
+  useEffect(
+    () => setupAuthExceptionHandler(logoutUser, navigate),
+    [logoutUser, navigate]
+  );
 
   useEffect(() => {
     const loginStatus = JSON.parse(localStorage?.getItem("glabslogin"));
@@ -102,13 +118,6 @@ export const AuthProvider = ({ children }) => {
       });
       return { success: false, error };
     }
-  }
-
-  function logoutUser() {
-    dispatch({ type: "LOGOUT_USER" });
-    localStorage.removeItem("glabslogin");
-    setupAuthHeaderForServiceCalls(undefined);
-    navigate("/");
   }
 
   async function signupUser(name, email, password) {
