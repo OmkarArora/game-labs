@@ -28,7 +28,7 @@ export const Library = () => {
         New playlist
       </div>
       <div className="container-playlists">
-        {playlists && playlists.map((playlist) => (
+        {playlists.length!==0 && playlists.map((playlist) => (
           <PlaylistNameCard
             key={`playlist${playlist.id}`}
             id={playlist.id}

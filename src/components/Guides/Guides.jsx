@@ -26,17 +26,22 @@ export const Guides = () => {
 
   return (
     <div className="guides">
-      {userSubscriptions && userSubscriptions.length === 0 && <div>No subscriptions found</div>}
+      {userSubscriptions && userSubscriptions.length === 0 && (
+        <div>No subscriptions found</div>
+      )}
       <div className="container-categorySelect">
-        {userSubscriptions.map((category) => (
-          <div
-            key={`Category${category.id}`}
-            className={activeCategory === category.id ? "pill active" : "pill"}
-            onClick={() => setActiveCategory(category.id)}
-          >
-            {category.name}
-          </div>
-        ))}
+        {userSubscriptions.length !== 0 &&
+          userSubscriptions.map((category) => (
+            <div
+              key={`Category${category.id}`}
+              className={
+                activeCategory === category.id ? "pill active" : "pill"
+              }
+              onClick={() => setActiveCategory(category.id)}
+            >
+              {category.name}
+            </div>
+          ))}
       </div>
       <div className="container-videos">
         {renderData.map((video) => (

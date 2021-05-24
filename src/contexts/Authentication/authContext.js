@@ -60,6 +60,8 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const loginStatus = JSON.parse(localStorage?.getItem("glabslogin"));
 
+    setupAuthHeaderForServiceCalls(loginStatus?.token);
+
     if (loginStatus?.isUserLoggedIn) {
       if (!userData) {
         (async () => {
@@ -76,7 +78,7 @@ export const AuthProvider = ({ children }) => {
     }
     loginStatus?.isUserLoggedIn &&
       dispatch({ type: "LOGIN_USER", payload: true });
-  }, [userData]);
+  }, [userData, logoutUser]);
 
   async function loginUserWithCredentials(email, password) {
     try {
