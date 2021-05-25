@@ -1,5 +1,6 @@
 import { createContext, useContext, useReducer, useEffect } from "react";
-import { fetchAllCategories , fetchUserSubscriptions} from "../../api";
+import { fetchAllCategories, fetchUserSubscriptions } from "../../api";
+import { setupAuthExceptionHandler } from "../axiosMethods";
 import { categoryReducer } from "./categoryReducer";
 
 const CategoryContext = createContext();
@@ -28,22 +29,17 @@ export const CategoryProvider = ({ children }) => {
         });
       }
     })();
-    if (localStorage?.getItem("glabslogin")) {
-      const userId = JSON.parse(localStorage.getItem("glabslogin")).userId;
-      //fetch user subscriptions
+    const loginStatus = JSON.parse(localStorage?.getItem("glabslogin"));
+    if (loginStatus) {
+      const userId = loginStatus.userId;
+      setupAuthExceptionHandler(loginStatus.token);
       (async () => {
         const subscriptions = await fetchUserSubscriptions(userId);
-        if ("isAxiosError" in subscriptions) {
-          // return setSnackbar({
-          //   openStatus: true,
-          //   type: "error",
-          //   data: "Error in loading subscriptions",
-          // });
-        }
-        dispatch({
-          type: "SET_USER_SUBSCRIPTIONS",
-          payload: { userSubscriptions: subscriptions },
-        });
+        if (!("isAxiosError" in subscriptions))
+          dispatch({
+            type: "SET_USER_SUBSCRIPTIONS",
+            payload: { userSubscriptions: subscriptions },
+          });
       })();
     }
   }, []);

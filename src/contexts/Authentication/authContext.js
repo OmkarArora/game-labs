@@ -8,47 +8,35 @@ import {
 import { authReducer } from "./authReducer";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
-function setupAuthHeaderForServiceCalls(token) {
-  if (token) {
-    return (axios.defaults.headers.common["Authorization"] = token);
-  }
-  delete axios.defaults.headers.common["Authorization"];
-}
-
-function setupAuthExceptionHandler(logoutUser, navigate) {
-  const UNAUTHORIZED = 401;
-  axios.interceptors.response.use(
-    (response) => response,
-    (error) => {
-      if (error?.response?.status === UNAUTHORIZED) {
-        logoutUser();
-        navigate("/login");
-      }
-      return Promise.reject(error);
-    }
-  );
-}
+import {
+  setupAuthHeaderForServiceCalls,
+  setupAuthExceptionHandler,
+} from "../axiosMethods";
 
 export const AuthContext = createContext();
 
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-  const [{ isUserLoggedIn, appState, errorMessage, userData }, dispatch] =
-    useReducer(authReducer, {
-      isUserLoggedIn: false,
-      appState: "success",
-      errorMessage: "",
-      userData: undefined,
-    });
+  let local_token =
+    JSON.parse(localStorage?.getItem("glabslogin"))?.token || null;
+  const [
+    { isUserLoggedIn, appState, errorMessage, userData, token },
+    dispatch,
+  ] = useReducer(authReducer, {
+    isUserLoggedIn: false,
+    appState: "success",
+    errorMessage: "",
+    userData: undefined,
+    token: local_token,
+  });
 
   const navigate = useNavigate();
 
   const logoutUser = useCallback(() => {
     dispatch({ type: "LOGOUT_USER" });
     localStorage.removeItem("glabslogin");
-    setupAuthHeaderForServiceCalls(undefined);
+    setupAuthHeaderForServiceCalls(null);
     navigate("/");
   }, [navigate]);
 
@@ -92,9 +80,11 @@ export const AuthProvider = ({ children }) => {
       );
       if (response.data.success) {
         dispatch({ type: "LOGIN_USER" });
-        dispatch({ type: "SET_APP_STATE", payload: "success" });
-        let userData = { ...response.data.user, token: response.data.token };
-        dispatch({ type: "SET_USER_DATA", payload: userData });
+        dispatch({ type: "SET_USER_DATA", payload: response.data.user });
+        dispatch({
+          type: "SET_TOKEN",
+          payload: { token: response.data.token },
+        });
         dispatch({
           type: "SET_ERROR_MESSAGE",
           payload: "",
@@ -107,10 +97,9 @@ export const AuthProvider = ({ children }) => {
             token: response.data.token,
           })
         );
-        setupAuthHeaderForServiceCalls(response.data.token);
-      } else {
-        dispatch({ type: "SET_APP_STATE", payload: "success" });
+        setupAuthHeaderForServiceCalls(token || response.data.token);
       }
+      dispatch({ type: "SET_APP_STATE", payload: "success" });
       return response.data;
     } catch (error) {
       dispatch({ type: "SET_APP_STATE", payload: "error" });
@@ -135,9 +124,11 @@ export const AuthProvider = ({ children }) => {
       );
       if (response.data.success) {
         dispatch({ type: "LOGIN_USER" });
-        dispatch({ type: "SET_APP_STATE", payload: "success" });
-        let userData = { ...response.user.data, token: response.data.token };
-        dispatch({ type: "SET_USER_DATA", payload: userData });
+        dispatch({ type: "SET_USER_DATA", payload: response.data.user });
+        dispatch({
+          type: "SET_TOKEN",
+          payload: { token: response.data.token },
+        });
         dispatch({
           type: "SET_ERROR_MESSAGE",
           payload: "",
@@ -150,10 +141,9 @@ export const AuthProvider = ({ children }) => {
             token: response.data.token,
           })
         );
-        setupAuthHeaderForServiceCalls(response.data.token);
-      } else {
-        dispatch({ type: "SET_APP_STATE", payload: "success" });
+        setupAuthHeaderForServiceCalls(token || response.data.token);
       }
+      dispatch({ type: "SET_APP_STATE", payload: "success" });
       return response.data;
     } catch (error) {
       dispatch({ type: "SET_APP_STATE", payload: "error" });

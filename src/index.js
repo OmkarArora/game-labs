@@ -8,7 +8,6 @@ import {
   AllVideosProvider,
   AuthProvider,
   CategoryProvider,
-  GuidesProvider,
   NavProvider,
   PlaylistsProvider,
 } from "./contexts";
@@ -22,9 +21,9 @@ ReactDOM.render(
             <CategoryProvider>
               <AllVideosProvider>
                 <PlaylistsProvider>
-                  <GuidesProvider>
+                  
                     <App />
-                  </GuidesProvider>
+                 
                 </PlaylistsProvider>
               </AllVideosProvider>
             </CategoryProvider>
