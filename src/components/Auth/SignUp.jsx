@@ -67,7 +67,7 @@ export const SignUp = () => {
 
   return (
     <div className="page-auth container-form-login">
-      <h2>LOGIN</h2>
+      <h2>Sign Up</h2>
       <form className="form-login" onSubmit={onSubmit}>
         <input
           type="text"
