@@ -1,6 +1,6 @@
 import { createContext, useContext, useReducer, useEffect } from "react";
 import { fetchAllCategories, fetchUserSubscriptions } from "../../api";
-import { setupAuthExceptionHandler } from "../axiosMethods";
+import { setupAuthHeaderForServiceCalls } from "../axiosMethods";
 import { categoryReducer } from "./categoryReducer";
 
 const CategoryContext = createContext();
@@ -32,7 +32,7 @@ export const CategoryProvider = ({ children }) => {
     const loginStatus = JSON.parse(localStorage?.getItem("glabslogin"));
     if (loginStatus) {
       const userId = loginStatus.userId;
-      setupAuthExceptionHandler(loginStatus.token);
+      setupAuthHeaderForServiceCalls(loginStatus.token);
       (async () => {
         const subscriptions = await fetchUserSubscriptions(userId);
         if (!("isAxiosError" in subscriptions))
