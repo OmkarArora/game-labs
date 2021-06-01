@@ -9,20 +9,26 @@ const AllVideosContext = createContext();
 export const useAllVideos = () => useContext(AllVideosContext);
 
 export const AllVideosProvider = ({ children }) => {
-  const [{ videos }, dispatch] = useReducer(allVideosReducer, { videos: [] });
-  
+  const [{ videos, appState }, dispatch] = useReducer(allVideosReducer, {
+    videos: [],
+    appState: "success",
+  });
+
   useEffect(() => {
     (async () => {
+      dispatch({ type: "SET_APP_STATE", payload: { appState: "loading" } });
       const fetchedVideos = await fetchAllVideos();
       if ("isAxiosError" in fetchedVideos) {
         //set error
+        dispatch({ type: "SET_APP_STATE", payload: { appState: "error" } });
       } else {
         dispatch({ type: "SET_VIDEOS", payload: { videos: fetchedVideos } });
+        dispatch({ type: "SET_APP_STATE", payload: { appState: "success" } });
       }
     })();
   }, []);
 
-  const value = { videos, dispatch };
+  const value = { videos, appState, dispatch };
 
   return (
     <AllVideosContext.Provider value={value}>
