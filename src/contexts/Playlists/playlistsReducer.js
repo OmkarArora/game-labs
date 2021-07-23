@@ -1,3 +1,7 @@
+export const initialState = {
+  playlists: []
+}
+
 export const reducerFn = (state, action) => {
   let _state = JSON.parse(JSON.stringify(state));
   let playlist = null;
@@ -32,7 +36,7 @@ export const reducerFn = (state, action) => {
         };
 
       case "DELETE_PLAYLIST":
-        //payload: {playlisId : ""}
+        //payload: {playlistId : ""}
         const playlists = _state.playlists.filter(
           (playlist) => playlist.id !== action.payload.playlistId
         );
