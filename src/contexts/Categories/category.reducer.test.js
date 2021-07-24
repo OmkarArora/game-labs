@@ -22,6 +22,7 @@ describe("testing category reducer", () => {
           developers: ["epic games"],
         },
       ],
+      appState: "success"
     };
 
     const reducerState = categoryReducer(initialState, action);
@@ -49,9 +50,113 @@ describe("testing category reducer", () => {
         },
       ],
       userSubscriptions: [],
+      appState: "success"
     };
 
     const reducerState = categoryReducer(initialState, action);
+    expect(reducerState).toEqual(finalState);
+  });
+
+  test("Subscribe to a category", () => {
+    let action = {
+      type: "SUB_TO_CATEGORY",
+      payload: {
+        category: {
+          id: "cat11",
+          developers: ["epic games"],
+        },
+      },
+    };
+
+    let finalState = {
+      userSubscriptions: [
+        {
+          id: "cat11",
+          developers: ["epic games"],
+        },
+      ],
+      allCategories: [],
+      appState: "success",
+    };
+
+    let reducerState = categoryReducer(initialState, action);
+    expect(reducerState).toEqual(finalState);
+
+    action = {
+      type: "SUB_TO_CATEGORY",
+      payload: {
+        category: {
+          id: "cat22",
+          developers: ["riot games"],
+        },
+      },
+    };
+
+    finalState = {
+      userSubscriptions: [
+        {
+          id: "cat11",
+          developers: ["epic games"],
+        },
+        {
+          id: "cat22",
+          developers: ["riot games"],
+        },
+      ],
+      allCategories: [],
+      appState: "success",
+    };
+    reducerState = categoryReducer(reducerState, action);
+    expect(reducerState).toEqual(finalState);
+  });
+
+  test("Unsubscribe from a category", () => {
+    const initialState = {
+      allCategories: [],
+      userSubscriptions: [
+        {
+          id: "cat11",
+        },
+        {
+          id: "cat22",
+        },
+      ],
+    };
+
+    let action = {
+      type: "UNSUB_FROM_CATEGORY",
+      payload: {
+        category: {
+          id: "cat11",
+        },
+      },
+    };
+
+    let finalState = {
+      allCategories: [],
+      userSubscriptions: [{ id: "cat22" }],
+      appState: "success",
+    };
+
+    let reducerState = categoryReducer(initialState, action);
+    expect(reducerState).toEqual(finalState);
+
+    action = {
+      type: "UNSUB_FROM_CATEGORY",
+      payload: {
+        category: {
+          id: "cat22",
+        },
+      },
+    };
+
+    finalState = {
+      allCategories: [],
+      userSubscriptions: [],
+      appState: "success",
+    };
+
+    reducerState = categoryReducer(reducerState, action);
     expect(reducerState).toEqual(finalState);
   });
 });

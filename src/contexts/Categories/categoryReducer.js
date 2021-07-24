@@ -1,6 +1,7 @@
 export const initialState = {
   allCategories: [],
   userSubscriptions: [],
+  appState: "success"
 };
 
 export const categoryReducer = (state, action) => {
