@@ -1,3 +1,8 @@
+export const initialState = {
+  allCategories: [],
+  userSubscriptions: [],
+};
+
 export const categoryReducer = (state, action) => {
   if (action) {
     switch (action.type) {
@@ -14,13 +19,20 @@ export const categoryReducer = (state, action) => {
         return { ...state, appState: action.payload.appState };
 
       case "SUB_TO_CATEGORY":
-        return {...state, userSubscriptions: [...state.userSubscriptions, action.payload.category], appState: "success"}
+        return {
+          ...state,
+          userSubscriptions: [
+            ...state.userSubscriptions,
+            action.payload.category,
+          ],
+          appState: "success",
+        };
 
       case "UNSUB_FROM_CATEGORY":
         let userSubs = state.userSubscriptions.filter(
           (item) => item.id !== action.payload.category.id
         );
-        return {...state, userSubscriptions: userSubs, appState: "success"}
+        return { ...state, userSubscriptions: userSubs, appState: "success" };
 
       default:
         return state;
