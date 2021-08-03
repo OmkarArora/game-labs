@@ -13,14 +13,12 @@ import { HiOutlineDotsVertical } from "react-icons/hi";
 import "./videoCard.css";
 import { useIcon } from "../../hooks";
 
-export const VideoCard = ({video}) => {
+export const VideoCard = ({ video }) => {
   const categoryIcon = useIcon(video.category);
 
   const [popoverVisibilty, setPopoverVisibility] = useState(false);
-  const [
-    addToPlaylistPopupVisibility,
-    setAddToPlaylistPopupVisibility,
-  ] = useState(false);
+  const [addToPlaylistPopupVisibility, setAddToPlaylistPopupVisibility] =
+    useState(false);
 
   const popoverMenu = [
     {
@@ -29,6 +27,14 @@ export const VideoCard = ({video}) => {
       onClose: () => setPopoverVisibility(false),
     },
   ];
+
+  const getShortendedVideoTitle = (title) => {
+    const maxLength = 45;
+    if (title.length > maxLength) {
+      return `${title.substring(0, maxLength)}...`;
+    }
+    return title;
+  };
 
   return (
     <div className="container-videoCard">
@@ -45,12 +51,14 @@ export const VideoCard = ({video}) => {
               height="2rem"
               width="2rem"
             />
-           <Link to={`/video/${video.id}`} className="link-videoTitle"><div>{video.title}</div></Link>
+            <Link to={`/video/${video.id}`} className="link-videoTitle">
+              <div>{getShortendedVideoTitle(video.title)}</div>
+            </Link>
           </CardContent>
           <CardActions>
             <span className="icon icon-menu remove-tap-highlight">
               <HiOutlineDotsVertical
-                onClick={() => setPopoverVisibility(prev => !prev)}
+                onClick={() => setPopoverVisibility((prev) => !prev)}
               />
               {popoverVisibilty && <Popover popoverMenu={popoverMenu} />}
             </span>

@@ -9,7 +9,7 @@
 }
 
 .container-videoCard .link-videoTitle {
-  width: 85%;
+  width: 80%;
 }
 
 .container-videoCard .container-cardCustom {
@@ -26,4 +26,5 @@
 
 .container-cardCustom .content-videoCard .container-cardContent {
   flex-direction: row;
+  width: 100%;
 }
