@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import { AddToPlaylistPopup } from "../AddToPlaylistPopup/AddToPlaylistPopup";
+import { Avatar } from "shoto-ui";
 import { MdAddToPhotos } from "react-icons/md";
-import "./exploreVideo.css";
 import { fetchVideoDetails } from "../../api";
-import {useAlert} from "../../contexts";
+import { useAlert } from "../../contexts";
+import { useIcon } from "../../hooks";
+import "./exploreVideo.css";
 
 export const ExploreVideo = () => {
   const { videoId } = useParams();
   const [video, setVideo] = useState({});
   const { state } = useLocation();
   const { setSnackbar } = useAlert();
+
+  const categoryIcon = useIcon(video?.category);
 
   const [addToPlaylistPopupVisibility, setAddToPlaylistPopupVisibility] =
     useState(false);
@@ -43,13 +47,24 @@ export const ExploreVideo = () => {
         allowFullScreen
       ></iframe>
       <div className="video-info">
-        <div>{video.description}</div>
-        <div
-          className="icon icon-add"
-          onClick={() => setAddToPlaylistPopupVisibility((prev) => !prev)}
-        >
-          <MdAddToPhotos />
+        <div className="info-top">
+          <Avatar
+            alt={video?.category}
+            src={categoryIcon}
+            bgColor={"white"}
+            height="2rem"
+            width="2rem"
+          />
+          <div className="video-title">{video?.title}</div>
+          <div
+            className="icon icon-add"
+            onClick={() => setAddToPlaylistPopupVisibility((prev) => !prev)}
+          >
+            <MdAddToPhotos />
+          </div>
         </div>
+        <div className="video-description">{video.description}</div>
+
         {addToPlaylistPopupVisibility && (
           <AddToPlaylistPopup
             onClose={(arg) => setAddToPlaylistPopupVisibility(arg)}

@@ -12,14 +12,28 @@
 .video-info {
   padding: 0 1rem;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  max-width: 80%;
 }
 
 .video-info .icon-add {
   font-size: 1.3rem;
   position: relative;
   top: 2px;
+}
+
+.video-info .info-top {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.video-info .video-title {
+  font-size: 1.2rem;
+}
+
+.video-info .video-description {
+  font-size: 0.95rem;
 }
 
 @media only screen and (min-width: 768px) {
