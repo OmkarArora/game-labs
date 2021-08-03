@@ -8,6 +8,10 @@
   color: var(--primary-text-color);
 }
 
+.container-videoCard .link-videoTitle {
+  width: 85%;
+}
+
 .container-videoCard .container-cardCustom {
   max-width: 100%;
   background-color: var(--primary-bg-color);

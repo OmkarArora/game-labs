@@ -14,7 +14,6 @@ import "./videoCard.css";
 import { useIcon } from "../../hooks";
 
 export const VideoCard = ({video}) => {
-  const primaryBgColor = "#181818";
   const categoryIcon = useIcon(video.category);
 
   const [popoverVisibilty, setPopoverVisibility] = useState(false);
@@ -42,11 +41,11 @@ export const VideoCard = ({video}) => {
             <Avatar
               alt={video.category}
               src={categoryIcon}
-              bgColor={primaryBgColor}
+              bgColor={"white"}
               height="2rem"
               width="2rem"
             />
-           <Link to={`/video/${video.id}`}><div>{video.title}</div></Link>
+           <Link to={`/video/${video.id}`} className="link-videoTitle"><div>{video.title}</div></Link>
           </CardContent>
           <CardActions>
             <span className="icon icon-menu remove-tap-highlight">
