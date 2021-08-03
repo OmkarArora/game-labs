@@ -44,7 +44,7 @@ Backend: https://github.com/OmkarArora/game-labs-backend
 
 ### Mobile
 
-<table>
+<table align="center">
   <tr>
     <td><img src="public/screenshots/gl-home2.png"></td>
     <td><img src="public/screenshots/gl-cat1.png"></td>
