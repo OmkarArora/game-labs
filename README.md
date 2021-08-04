@@ -7,14 +7,6 @@ Live link: https://game-labs.netlify.app
 Backend: https://github.com/OmkarArora/game-labs-backend
 
 ---
-
-## Tech Stack
-
-- ReactJS, React Router v6
-- [Shoto UI](https://shotoui.netlify.app)
-- ExpressJS
-- MongoDB
-
 ## Tech stack
 
 - Frontend
