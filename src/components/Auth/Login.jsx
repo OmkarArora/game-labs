@@ -85,6 +85,11 @@ export const Login = () => {
     loginHandler(email, password);
   };
 
+  const onSubmitTestCreds = (e) => {
+    e.preventDefault();
+    loginHandler("user@gmail.com", "abcd@1234");
+  }
+
   return (
     <div className="page-auth container-form-login">
       <h2>LOGIN</h2>
@@ -120,12 +125,17 @@ export const Login = () => {
           </button>
         )} */}
         <button type="submit" className="btn-submit">
-          LOGIN
+          Login
+        </button>
+      </form>
+      <form className="form-login test-creds"  onSubmit={onSubmitTestCreds}>
+      <button type="submit" className="btn-submit">
+          Login with Test Credentials
         </button>
       </form>
 
       <div>
-        <Link to="/signup">Not a member yet? Sign Up</Link>
+        <Link to="/signup" className="link-login">Not a member yet? Sign Up</Link>
       </div>
 
       {appState === "loading" && <LoadingModal />}

@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useNav } from "../../contexts";
 import { VideoCard } from "../VideoCard/VideoCard";
 import { useAllVideos } from "../../contexts";
-import "./home.css";
 import { LoadingModal } from "../LoadingModal/LoadingModal";
 
 export const Home = () => {

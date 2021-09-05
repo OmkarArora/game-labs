@@ -2,14 +2,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid black;
 }
 
 .form-login {
-  border: 1px solid black;
   width: max-content;
   padding: 1rem;
   width: 100%;
+  max-width: 600px;
+  text-align: center;
+}
+
+.form-login.test-creds {
+  padding-top: 0;
 }
 
 .form-login input {
@@ -21,13 +25,18 @@
 }
 
 .form-login .btn-submit {
-  width: 100%;
-  padding: 0.4rem 0;
+  padding: 0.4rem 1rem;
   color: white;
+  background-color: var(--highlight-color);
   opacity: 0.95;
   cursor: pointer;
   border: none;
   outline: none;
+  margin-top: 5px;
+}
+
+.form-login.test-creds .btn-submit {
+  margin-top: 0;
 }
 
 .form-login .btn-submit:hover {

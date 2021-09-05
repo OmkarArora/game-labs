@@ -9,10 +9,12 @@ export const Header = () => {
 
   return (
     <header className="header">
-      <div className="logo">
-        <img src={Logo} alt="game labs" />
-        <span>Game LABS</span>
-      </div>
+      <Link to="/" className="link-logo">
+        <div className="logo">
+            <img src={Logo} alt="game labs" />
+            <span>Game LABS</span>
+        </div>
+      </Link>
       <div className="container-avatar-user">
         {isUserLoggedIn && (
           <Link to="/user-profile">
@@ -24,7 +26,7 @@ export const Header = () => {
             />
           </Link>
         )}
-        {!isUserLoggedIn && <Link to="/login">LOGIN</Link>}
+        {!isUserLoggedIn && <Link to="/login" className="link-login">LOGIN</Link>}
       </div>
     </header>
   );

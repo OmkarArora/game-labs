@@ -5,6 +5,11 @@
   padding: 0.5rem 1rem;
 }
 
+a.link-logo {
+  text-decoration: none;
+  color: var(--primary-text-color);
+}
+
 .header .logo {
   display: flex;
   justify-content: center;
