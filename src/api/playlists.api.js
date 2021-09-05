@@ -73,8 +73,11 @@ export const addVideoToPlaylist = async (playlistId, videoId) => {
       }
     );
     if (data.success) {
-      let playlist = data.playlist;
-      return playlist;
+      if(data.playlist){
+        let playlist = data.playlist;
+        return playlist;
+      }
+     else return new Error("Something went wrong");
     }
   } catch (error) {
     console.error({ error });
@@ -91,7 +94,6 @@ export const deleteVideoFromPlaylist = async (playlistId, videoId) => {
     );
     if (data.success) {
       let playlist = data.playlist;
-      console.log({ playlist });
       return playlist;
     }
   } catch (error) {

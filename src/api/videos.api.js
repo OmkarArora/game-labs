@@ -7,6 +7,15 @@ export const fetchVideoDetails = async (videoId) => {
     );
     if (data.success) {
       let video = data.video;
+      video = {
+        id: video._id,
+        title: video.title,
+        video: video.video,
+        thumbnail: video.thumbnail,
+        description: video.description,
+        category: video.category,
+        runtime: video.runtime,
+      }
       return video;
     }
   } catch (error) {
