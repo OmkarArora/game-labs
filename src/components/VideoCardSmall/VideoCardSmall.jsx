@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { usePlaylists, useAlert } from "../../contexts";
+import { usePlaylists, useAlert, useAuth } from "../../contexts";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { Popover } from "../Popover/Popover";
 import { AddToPlaylistPopup } from "../AddToPlaylistPopup/AddToPlaylistPopup";
@@ -8,6 +8,7 @@ import "./videoCardSmall.css";
 import { deleteVideoFromPlaylist } from "../../api";
 
 export const VideoCardSmall = ({ playlistId, playlistTitle, video }) => {
+  const { isUserLoggedIn } = useAuth();
   const [popoverVisibilty, setPopoverVisibility] = useState(false);
   const [addToPlaylistPopupVisibility, setAddToPlaylistPopupVisibility] =
     useState(false);
@@ -73,7 +74,7 @@ export const VideoCardSmall = ({ playlistId, playlistTitle, video }) => {
           {popoverVisibilty && <Popover popoverMenu={popoverMenu} />}
         </span>
       </div>
-      {addToPlaylistPopupVisibility && (
+      {isUserLoggedIn && addToPlaylistPopupVisibility && (
         <AddToPlaylistPopup
           onClose={(arg) => setAddToPlaylistPopupVisibility(arg)}
           video={video}

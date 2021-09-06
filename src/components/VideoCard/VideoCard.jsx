@@ -10,11 +10,13 @@ import {
 import { Popover } from "../Popover/Popover";
 import { AddToPlaylistPopup } from "../AddToPlaylistPopup/AddToPlaylistPopup";
 import { HiOutlineDotsVertical } from "react-icons/hi";
-import "./videoCard.css";
 import { useIcon } from "../../hooks";
+import { useAuth } from "../../contexts";
+import "./videoCard.css";
 
 export const VideoCard = ({ video }) => {
   const categoryIcon = useIcon(video.category);
+  const { isUserLoggedIn } = useAuth();
 
   const [popoverVisibilty, setPopoverVisibility] = useState(false);
   const [addToPlaylistPopupVisibility, setAddToPlaylistPopupVisibility] =
@@ -55,17 +57,19 @@ export const VideoCard = ({ video }) => {
               <div>{getShortendedVideoTitle(video.title)}</div>
             </Link>
           </CardContent>
-          <CardActions>
-            <span className="icon icon-menu remove-tap-highlight">
-              <HiOutlineDotsVertical
-                onClick={() => setPopoverVisibility((prev) => !prev)}
-              />
-              {popoverVisibilty && <Popover popoverMenu={popoverMenu} />}
-            </span>
-          </CardActions>
+          {isUserLoggedIn && (
+            <CardActions>
+              <span className="icon icon-menu remove-tap-highlight">
+                <HiOutlineDotsVertical
+                  onClick={() => setPopoverVisibility((prev) => !prev)}
+                />
+                {popoverVisibilty && <Popover popoverMenu={popoverMenu} />}
+              </span>
+            </CardActions>
+          )}
         </div>
       </CardCustom>
-      {addToPlaylistPopupVisibility && (
+      {isUserLoggedIn && addToPlaylistPopupVisibility && (
         <AddToPlaylistPopup
           onClose={(arg) => setAddToPlaylistPopupVisibility(arg)}
           video={video}
