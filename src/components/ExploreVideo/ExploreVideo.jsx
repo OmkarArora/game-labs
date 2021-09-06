@@ -4,7 +4,7 @@ import { AddToPlaylistPopup } from "../AddToPlaylistPopup/AddToPlaylistPopup";
 import { Avatar } from "shoto-ui";
 import { MdAddToPhotos } from "react-icons/md";
 import { fetchVideoDetails } from "../../api";
-import { useAlert } from "../../contexts";
+import { useAlert, useAuth } from "../../contexts";
 import { useIcon } from "../../hooks";
 import "./exploreVideo.css";
 
@@ -13,6 +13,7 @@ export const ExploreVideo = () => {
   const [video, setVideo] = useState({});
   const { state } = useLocation();
   const { setSnackbar } = useAlert();
+  const { isUserLoggedIn } = useAuth();
 
   const categoryIcon = useIcon(video?.category);
 
@@ -56,16 +57,18 @@ export const ExploreVideo = () => {
             width="2rem"
           />
           <div className="video-title">{video?.title}</div>
-          <div
-            className="icon icon-add"
-            onClick={() => setAddToPlaylistPopupVisibility((prev) => !prev)}
-          >
-            <MdAddToPhotos />
-          </div>
+          {isUserLoggedIn && (
+            <div
+              className="icon icon-add"
+              onClick={() => setAddToPlaylistPopupVisibility((prev) => !prev)}
+            >
+              <MdAddToPhotos />
+            </div>
+          )}
         </div>
         <div className="video-description">{video.description}</div>
 
-        {addToPlaylistPopupVisibility && (
+        {isUserLoggedIn && addToPlaylistPopupVisibility && (
           <AddToPlaylistPopup
             onClose={(arg) => setAddToPlaylistPopupVisibility(arg)}
             video={video}
