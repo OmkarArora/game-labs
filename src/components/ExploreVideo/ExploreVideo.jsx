@@ -3,8 +3,8 @@ import { useParams, useLocation } from "react-router-dom";
 import { AddToPlaylistPopup } from "../AddToPlaylistPopup/AddToPlaylistPopup";
 import { Avatar } from "shoto-ui";
 import { MdAddToPhotos } from "react-icons/md";
-import { fetchVideoDetails } from "../../api";
-import { useAlert, useAuth } from "../../contexts";
+import { fetchVideoDetails, addVideoToPlaylist } from "../../api";
+import { useAlert, useAuth, usePlaylists } from "../../contexts";
 import { useIcon } from "../../hooks";
 import "./exploreVideo.css";
 
@@ -14,11 +14,28 @@ export const ExploreVideo = () => {
   const { state } = useLocation();
   const { setSnackbar } = useAlert();
   const { isUserLoggedIn } = useAuth();
+  const { history, dispatch } = usePlaylists();
 
   const categoryIcon = useIcon(video?.category);
 
   const [addToPlaylistPopupVisibility, setAddToPlaylistPopupVisibility] =
     useState(false);
+
+  useEffect(() => {
+    (async () => {
+      if (history && history.id) {
+        let fetchedHistory = await addVideoToPlaylist(history.id, videoId);
+        if (
+          !("isAxiosError" in fetchedHistory || fetchedHistory instanceof Error)
+        ) {
+          dispatch({
+            type: "SET_HISTORY",
+            payload: { history: fetchedHistory },
+          });
+        }
+      }
+    })();
+  }, [dispatch, history, videoId]);
 
   useEffect(() => {
     if (!state) {

@@ -5,6 +5,7 @@ import { LoadingModal } from "../LoadingModal/LoadingModal";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { fetchPlaylists, fetchUserSubscriptions } from "../../api";
 import "./auth.css";
+import { fetchHistory, fetchWatchLater } from "../../api/playlists.api";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
@@ -61,6 +62,40 @@ export const Login = () => {
         });
       })();
 
+      // fetch user history
+      (async () => {
+        const userId = msg.user.id;
+        const history = await fetchHistory(userId);
+        if ("isAxiosError" in history) {
+          return setSnackbar({
+            openStatus: true,
+            type: "error",
+            data: "Error in loading user history",
+          });
+        }
+        playlistDispatch({
+          type: "SET_HISTORY",
+          payload: { history },
+        });
+      })();
+
+      // fetch user watch later
+      (async () => {
+        const userId = msg.user.id;
+        const watchLater = await fetchWatchLater(userId);
+        if ("isAxiosError" in watchLater) {
+          return setSnackbar({
+            openStatus: true,
+            type: "error",
+            data: "Error in loading user history",
+          });
+        }
+        playlistDispatch({
+          type: "SET_WATCH_LATER",
+          payload: { watchLater },
+        });
+      })();
+
       //fetch user subscriptions
       (async () => {
         const userId = msg.user.id;
@@ -88,7 +123,7 @@ export const Login = () => {
   const onSubmitTestCreds = (e) => {
     e.preventDefault();
     loginHandler("user@gmail.com", "abcd@1234");
-  }
+  };
 
   return (
     <div className="page-auth container-form-login">
@@ -128,14 +163,16 @@ export const Login = () => {
           Login
         </button>
       </form>
-      <form className="form-login test-creds"  onSubmit={onSubmitTestCreds}>
-      <button type="submit" className="btn-submit">
+      <form className="form-login test-creds" onSubmit={onSubmitTestCreds}>
+        <button type="submit" className="btn-submit">
           Login with Test Credentials
         </button>
       </form>
 
       <div>
-        <Link to="/signup" className="link-login">Not a member yet? Sign Up</Link>
+        <Link to="/signup" className="link-login">
+          Not a member yet? Sign Up
+        </Link>
       </div>
 
       {appState === "loading" && <LoadingModal />}

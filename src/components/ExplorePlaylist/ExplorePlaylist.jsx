@@ -8,16 +8,26 @@ import "./explorePlaylist.css";
 
 export const ExplorePlaylist = () => {
   const { playlistId } = useParams();
-  const { appState, playlists } = usePlaylists();
+  const { appState, playlists, watchLater, history } = usePlaylists();
   const [playlist, setPlaylist] = useState({});
+  const [type, setType] = useState("");
 
   const { setActiveNavLink } = useNav();
   useEffect(() => setActiveNavLink("library"), [setActiveNavLink]);
 
   useEffect(() => {
-    const playlist = playlists.find((item) => item.id === playlistId);
+    let playlist = playlists.find((item) => item.id === playlistId);
+    if (!playlist) {
+      if (playlistId === watchLater.id) {
+        playlist = watchLater;
+        setType("watchLater");
+      } else if (playlistId === history.id) {
+        playlist = history;
+        setType("history");
+      }
+    }
     setPlaylist(playlist);
-  }, [playlistId, playlists]);
+  }, [playlistId, playlists, watchLater, history]);
 
   return (
     <div className="explore-playlist">
@@ -28,16 +38,22 @@ export const ExplorePlaylist = () => {
         )}
         {playlist &&
           playlist.videos &&
-          playlist.videos.map((video) => (
-            <VideoCardSmall
-              key={video.id}
-              playlistId={playlistId}
-              playlistTitle={playlist.title}
-              video={video}
-            />
-          ))}
+          playlist.videos.map((video) => {
+            if (video && video.id) {
+              return (
+                <VideoCardSmall
+                  key={video.id}
+                  playlistId={playlistId}
+                  playlistTitle={playlist.title}
+                  video={video}
+                  type={type}
+                />
+              );
+            }
+            return null;
+          })}
       </div>
-      {appState==="loading" && <LoadingModal/>}
+      {appState === "loading" && <LoadingModal />}
     </div>
   );
 };

@@ -11,12 +11,16 @@ import { Popover } from "../Popover/Popover";
 import { AddToPlaylistPopup } from "../AddToPlaylistPopup/AddToPlaylistPopup";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { useIcon } from "../../hooks";
-import { useAuth } from "../../contexts";
+import { useAlert, useAllVideos, useAuth, usePlaylists } from "../../contexts";
+import { addVideoToPlaylist } from "../../api";
 import "./videoCard.css";
 
 export const VideoCard = ({ video }) => {
   const categoryIcon = useIcon(video.category);
   const { isUserLoggedIn } = useAuth();
+  const { watchLater, dispatch } = usePlaylists();
+  const { dispatch: homeDispatch } = useAllVideos();
+  const { setSnackbar } = useAlert();
 
   const [popoverVisibilty, setPopoverVisibility] = useState(false);
   const [addToPlaylistPopupVisibility, setAddToPlaylistPopupVisibility] =
@@ -28,6 +32,11 @@ export const VideoCard = ({ video }) => {
       performAction: () => setAddToPlaylistPopupVisibility(true),
       onClose: () => setPopoverVisibility(false),
     },
+    {
+      text: "Save to Watch Later",
+      performAction: () => addToWatchLater(),
+      onClose: () => setPopoverVisibility(false),
+    },
   ];
 
   const getShortendedVideoTitle = (title) => {
@@ -36,6 +45,38 @@ export const VideoCard = ({ video }) => {
       return `${title.substring(0, maxLength)}...`;
     }
     return title;
+  };
+
+  const addToWatchLater = async () => {
+    if (watchLater && watchLater.id) {
+      homeDispatch({ type: "SET_APP_STATE", payload: { appState: "loading" } });
+      let fetchedWatchLater = await addVideoToPlaylist(watchLater.id, video.id);
+      if (
+        !(
+          "isAxiosError" in fetchedWatchLater ||
+          fetchedWatchLater instanceof Error
+        )
+      ) {
+        dispatch({
+          type: "SET_WATCH_LATER",
+          payload: { watchLater: fetchedWatchLater },
+        });
+        setSnackbar({
+          openStatus: true,
+          type: "success",
+          data: "Video added to Watch Later",
+        });
+      } else {
+        setSnackbar({
+          openStatus: true,
+          type: "error",
+          data: fetchedWatchLater.errorMessage
+            ? fetchedWatchLater.errorMessage
+            : fetchedWatchLater.message,
+        });
+      }
+      homeDispatch({ type: "SET_APP_STATE", payload: { appState: "success" } });
+    }
   };
 
   return (

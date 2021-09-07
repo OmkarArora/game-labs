@@ -5,15 +5,15 @@ import { HiOutlineDotsVertical } from "react-icons/hi";
 import { Popover } from "../Popover/Popover";
 import { AddToPlaylistPopup } from "../AddToPlaylistPopup/AddToPlaylistPopup";
 import "./videoCardSmall.css";
-import { deleteVideoFromPlaylist } from "../../api";
+import { deleteVideoFromPlaylist, addVideoToPlaylist } from "../../api";
 
-export const VideoCardSmall = ({ playlistId, playlistTitle, video }) => {
+export const VideoCardSmall = ({ playlistId, playlistTitle, video, type }) => {
   const { isUserLoggedIn } = useAuth();
   const [popoverVisibilty, setPopoverVisibility] = useState(false);
   const [addToPlaylistPopupVisibility, setAddToPlaylistPopupVisibility] =
     useState(false);
 
-  const { dispatch } = usePlaylists();
+  const { dispatch, watchLater } = usePlaylists();
   const { setSnackbar } = useAlert();
 
   const popoverMenu = [
@@ -23,18 +23,23 @@ export const VideoCardSmall = ({ playlistId, playlistTitle, video }) => {
       onClose: () => setPopoverVisibility(false),
     },
     {
+      text: "Save to Watch Later",
+      performAction: () => addToWatchLater(),
+      onClose: () => setPopoverVisibility(false),
+    },
+    {
       text: `Remove from ${playlistTitle}`,
       performAction: () => {
         const loginStatus = JSON.parse(localStorage?.getItem("glabslogin"));
 
-        if (loginStatus) {
+        if (loginStatus && video && video.id) {
           (async () => {
             dispatch({
               type: "SET_APP_STATE",
               payload: { appState: "loading" },
             });
             let playlist = await deleteVideoFromPlaylist(playlistId, video.id);
-            if ("isAxiosError" in playlist) {
+            if ("isAxiosError" in playlist || playlist instanceof Error) {
               // set error
               setSnackbar({
                 open: true,
@@ -42,10 +47,21 @@ export const VideoCardSmall = ({ playlistId, playlistTitle, video }) => {
                 data: "Error deleting video from playlist",
               });
             } else {
-              dispatch({
-                type: "REMOVE_VIDEO_FROM_PLAYLIST",
-                payload: { playlistId: playlistId, videoId: video.id },
-              });
+              if (type === "history") {
+                dispatch({
+                  type: "REMOVE_VIDEO_FROM_HISTORY",
+                  payload: { videoId: video.id },
+                });
+              } else if (type === "watchLater") {
+                dispatch({
+                  type: "REMOVE_VIDEO_FROM_WATCH_LATER",
+                  payload: { videoId: video.id },
+                });
+              } else
+                dispatch({
+                  type: "REMOVE_VIDEO_FROM_PLAYLIST",
+                  payload: { playlistId: playlist.id, videoId: video.id },
+                });
             }
             dispatch({
               type: "SET_APP_STATE",
@@ -57,6 +73,38 @@ export const VideoCardSmall = ({ playlistId, playlistTitle, video }) => {
       onClose: () => setPopoverVisibility(false),
     },
   ];
+
+  const addToWatchLater = async () => {
+    if (watchLater && watchLater.id) {
+      dispatch({ type: "SET_APP_STATE", payload: { appState: "loading" } });
+      let fetchedWatchLater = await addVideoToPlaylist(watchLater.id, video.id);
+      if (
+        !(
+          "isAxiosError" in fetchedWatchLater ||
+          fetchedWatchLater instanceof Error
+        )
+      ) {
+        dispatch({
+          type: "SET_WATCH_LATER",
+          payload: { watchLater: fetchedWatchLater },
+        });
+        setSnackbar({
+          openStatus: true,
+          type: "success",
+          data: "Video added to Watch Later",
+        });
+      } else {
+        setSnackbar({
+          openStatus: true,
+          type: "error",
+          data: fetchedWatchLater.errorMessage
+            ? fetchedWatchLater.errorMessage
+            : fetchedWatchLater.message,
+        });
+      }
+      dispatch({ type: "SET_APP_STATE", payload: { appState: "success" } });
+    }
+  };
 
   return (
     <div className="card-videoSmall">

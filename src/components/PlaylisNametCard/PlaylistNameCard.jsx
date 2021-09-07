@@ -7,7 +7,13 @@ import "./playlistNameCard.css";
 import { deletePlaylist } from "../../api";
 import { LoadingModal } from "../LoadingModal/LoadingModal";
 
-export const PlaylistNameCard = ({ id, image, title, numOfVideos }) => {
+export const PlaylistNameCard = ({
+  id,
+  image,
+  title,
+  numOfVideos,
+  showPopover,
+}) => {
   const [popoverVisibilty, setPopoverVisibility] = useState(false);
   const { appState, dispatch } = usePlaylists();
   const { setSnackbar } = useAlert();
@@ -71,14 +77,16 @@ export const PlaylistNameCard = ({ id, image, title, numOfVideos }) => {
             {numOfVideos === 1 ? "video" : "videos"}
           </div>
         </div>
-        <div>
-          <span className="icon icon-menu remove-tap-highlight">
-            <HiOutlineDotsVertical
-              onClick={() => setPopoverVisibility((prev) => !prev)}
-            />
-            {popoverVisibilty && <Popover popoverMenu={popoverMenu} />}
-          </span>
-        </div>
+        {showPopover && (
+          <div>
+            <span className="icon icon-menu remove-tap-highlight">
+              <HiOutlineDotsVertical
+                onClick={() => setPopoverVisibility((prev) => !prev)}
+              />
+              {popoverVisibilty && <Popover popoverMenu={popoverMenu} />}
+            </span>
+          </div>
+        )}
       </div>
       {appState === "loading" && <LoadingModal />}
     </div>
